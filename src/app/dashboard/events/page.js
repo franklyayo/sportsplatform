@@ -1,116 +1,266 @@
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
-import prisma from "@/lib/prisma";
 import styles from "./events.module.css";
 
-// Mock data fallback
 const mockEvents = [
   {
-    id: "1", title: "National U-17 Football Championship", description: "The premier youth football tournament showcasing the best talents across all 36 states.", sport: "Football", location: "Lagos National Stadium", date: new Date("2026-08-15T10:00:00Z"), status: "Upcoming", bannerUrl: "https://images.unsplash.com/photo-1518605368461-1eb7b63f2735?q=80&w=600&auto=format&fit=crop"
+    id: "1",
+    title: "National U-17 Football Championship 2026",
+    sport: "Football",
+    location: "Godswill Akpabio Stadium, Uyo",
+    date: "2026-08-15",
+    status: "Upcoming",
+    ticketsAvailable: 1500,
+    bannerUrl: "https://images.unsplash.com/photo-1518605368461-1eb7b63f2735?q=80&w=600&auto=format&fit=crop"
   },
   {
-    id: "2", title: "Abuja Marathon 2026", description: "Annual city marathon drawing thousands of athletes and spectators to the capital city.", sport: "Athletics", location: "Eagle Square, Abuja", date: new Date("2026-09-02T06:00:00Z"), status: "Upcoming", bannerUrl: "https://images.unsplash.com/photo-1551280857-2b9bbe5260fc?q=80&w=600&auto=format&fit=crop"
+    id: "2",
+    title: "22nd Nigeria National Sports Festival",
+    sport: "Multi-Sport",
+    location: "Moshood Abiola Stadium, Abuja",
+    date: "2026-09-02",
+    status: "Upcoming",
+    ticketsAvailable: 5000,
+    bannerUrl: "https://images.unsplash.com/photo-1551280857-2b9bbe5260fc?q=80&w=600&auto=format&fit=crop"
   },
   {
-    id: "3", title: "NBBF Premier League Finals", description: "The climax of the national basketball season.", sport: "Basketball", location: "Indoor Sports Hall, Surulere", date: new Date("2026-07-25T18:00:00Z"), status: "Upcoming", bannerUrl: "https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?q=80&w=600&auto=format&fit=crop"
+    id: "3",
+    title: "NBBF Premier League Finals: Lagos vs Rivers",
+    sport: "Basketball",
+    location: "Teslim Balogun Indoor Hall, Lagos",
+    date: "2026-07-28",
+    status: "Ongoing",
+    ticketsAvailable: 420,
+    bannerUrl: "https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?q=80&w=600&auto=format&fit=crop"
   }
 ];
 
-export default async function EventsDashboard() {
-  let events = [];
-  
-  try {
-    const dbEvents = await prisma.event.findMany({
-      orderBy: { date: 'asc' },
-    });
-    
-    if (dbEvents.length > 0) {
-      events = dbEvents;
-    } else {
-      events = mockEvents;
-    }
-  } catch (error) {
-    console.warn("DB connection failed or timeout, using mock data", error.message);
-    events = mockEvents;
-  }
+const liveScores = [
+  { match: "Super Eagles Friendly: Nigeria 2 - 1 Ghana", time: "78' (LIVE)", sport: "Football" },
+  { match: "NBBF Finals: Lagos Hoops 68 - 64 Rivers Hoops", time: "Q4 3:12 (LIVE)", sport: "Basketball" },
+  { match: "National Athletics 100m Semi-Final 1: Obasi 10.12s", time: "Official", sport: "Athletics" }
+];
+
+export default function EventsDashboard() {
+  const [activeTab, setActiveTab] = useState("events"); // events, liveScores, leaderboards
+  const [selectedEventModal, setSelectedEventModal] = useState(null);
+  const [ticketIssued, setTicketIssued] = useState(false);
 
   return (
     <div className={styles.eventsDashboard}>
       <div className={styles.header}>
         <div>
-          <h1 className={styles.title}>Events & Competitions</h1>
-          <p className={styles.subtitle}>Discover and register for upcoming tournaments across Nigeria.</p>
+          <span className={styles.badge}>Module 6: Events & Competitions</span>
+          <h1 className={styles.title}>National Calendar, Live Scores & Ticketing</h1>
+          <p className={styles.subtitle}>
+            National, state & local competitions, live scoreboard ticker, participant registration & digital QR tickets.
+          </p>
         </div>
-        <div className={styles.actions}>
-          <button className="button-primary">+ Create Event</button>
-        </div>
+
+        <button className="button-primary" onClick={() => alert("Organizers Event Submission Form...")}>
+          + Sanction New Event
+        </button>
       </div>
 
-      <div className={styles.mainLayout}>
-        {/* Filters Sidebar */}
-        <aside className={`${styles.filtersSidebar} card`}>
-          <h3 className={styles.filterTitle}>Event Filters</h3>
-          
-          <div className={styles.filterGroup}>
-            <label>Sport</label>
-            <select className={styles.select}>
-              <option>All Sports</option>
-              <option>Football</option>
-              <option>Basketball</option>
-              <option>Athletics</option>
-            </select>
-          </div>
-
-          <div className={styles.filterGroup}>
-            <label>Location</label>
-            <select className={styles.select}>
-              <option>Any Location</option>
-              <option>Lagos</option>
-              <option>Abuja</option>
-              <option>Port Harcourt</option>
-              <option>Kano</option>
-            </select>
-          </div>
-
-          <div className={styles.filterGroup}>
-            <label>Status</label>
-            <select className={styles.select}>
-              <option>Upcoming</option>
-              <option>Ongoing</option>
-              <option>Completed</option>
-            </select>
-          </div>
-          
-          <button className={styles.applyBtn}>Apply Filters</button>
-        </aside>
-
-        {/* Events Grid */}
-        <div className={styles.eventsGrid}>
-          {events.map(event => (
-            <Link href={`/dashboard/events/${event.id}`} key={event.id} className={`${styles.eventCard} card`}>
-              <div className={styles.eventBannerContainer}>
-                {event.bannerUrl ? (
-                  <Image src={event.bannerUrl} alt={event.title} fill style={{ objectFit: 'cover' }} />
-                ) : (
-                  <div className={styles.placeholderBanner}>{event.title.charAt(0)}</div>
-                )}
-                <div className={styles.statusBadge}>{event.status}</div>
-              </div>
-              <div className={styles.eventInfo}>
-                <div className={styles.eventDate}>
-                  <span className={styles.dateMonth}>{new Date(event.date).toLocaleDateString('en-US', { month: 'short' })}</span>
-                  <span className={styles.dateDay}>{new Date(event.date).getDate()}</span>
-                </div>
-                <div className={styles.eventDetails}>
-                  <h3 className={styles.eventTitle}>{event.title}</h3>
-                  <p className={styles.eventLocation}>📍 {event.location}</p>
-                  <p className={styles.eventSport}>{event.sport}</p>
-                </div>
-              </div>
-            </Link>
+      {/* Live Match Scoreboard Ticker */}
+      <div className={styles.tickerContainer}>
+        <span className={styles.tickerTitle}>🔴 LIVE SCORES TICKER:</span>
+        <div className={styles.tickerTrack}>
+          {liveScores.map((ls, idx) => (
+            <div key={idx} className={styles.tickerItem}>
+              <span>{ls.sport}:</span>
+              <strong>{ls.match}</strong>
+              <span className={styles.liveTag}>{ls.time}</span>
+            </div>
           ))}
         </div>
       </div>
+
+      {/* Navigation Tabs */}
+      <div className={styles.featureTabs}>
+        <button 
+          className={`${styles.tabBtn} ${activeTab === "events" ? styles.activeTab : ""}`}
+          onClick={() => setActiveTab("events")}
+        >
+          📅 Calendar & Registration
+        </button>
+        <button 
+          className={`${styles.tabBtn} ${activeTab === "liveScores" ? styles.activeTab : ""}`}
+          onClick={() => setActiveTab("liveScores")}
+        >
+          🏆 Live Results & Matches
+        </button>
+        <button 
+          className={`${styles.tabBtn} ${activeTab === "leaderboards" ? styles.activeTab : ""}`}
+          onClick={() => setActiveTab("leaderboards")}
+        >
+          🥇 State Rankings & Leaderboard
+        </button>
+      </div>
+
+      {activeTab === "events" && (
+        <div className={styles.eventsGrid}>
+          {mockEvents.map(event => (
+            <div key={event.id} className={`${styles.eventCard} card`}>
+              <div className={styles.eventBannerContainer}>
+                <Image src={event.bannerUrl} alt={event.title} fill style={{ objectFit: 'cover' }} />
+                <div className={styles.statusBadge}>{event.status}</div>
+              </div>
+
+              <div className={styles.eventInfo}>
+                <div className={styles.eventHeaderRow}>
+                  <h3 className={styles.eventTitle}>{event.title}</h3>
+                  <span className={styles.sportTag}>{event.sport}</span>
+                </div>
+                
+                <p className={styles.eventLocation}>📍 {event.location}</p>
+                <p className={styles.eventDate}>📅 Date: {event.date}</p>
+
+                <div className={styles.cardFooter}>
+                  <span>🎟️ {event.ticketsAvailable} Passes Left</span>
+                  <button 
+                    className="button-primary"
+                    onClick={() => {
+                      setSelectedEventModal(event);
+                      setTicketIssued(false);
+                    }}
+                  >
+                    Register / Pass
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {activeTab === "liveScores" && (
+        <div className={styles.scoresList}>
+          {liveScores.map((ls, i) => (
+            <div key={i} className={`${styles.scoreCard} card`}>
+              <div className={styles.scoreHeader}>
+                <span>{ls.sport}</span>
+                <span className={styles.livePulse}>● {ls.time}</span>
+              </div>
+              <h3 className={styles.matchText}>{ls.match}</h3>
+              <div className={styles.matchActions}>
+                <button className={styles.matchBtn} onClick={() => alert("Loading match stats commentary...")}>
+                  📊 View Match Statistics
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {activeTab === "leaderboards" && (
+        <div className={`${styles.leaderboardBox} card`}>
+          <h2>🥇 National Sports Festival Medal Table (2026 Standings)</h2>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>State / Delegation</th>
+                <th>Gold 🥇</th>
+                <th>Silver 🥈</th>
+                <th>Bronze 🥉</th>
+                <th>Total Medals</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>1</td>
+                <td>Delta State</td>
+                <td>42</td>
+                <td>28</td>
+                <td>19</td>
+                <td><strong>89</strong></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>Lagos State</td>
+                <td>38</td>
+                <td>31</td>
+                <td>22</td>
+                <td><strong>91</strong></td>
+              </tr>
+              <tr>
+                <td>3</td>
+                <td>Edo State</td>
+                <td>29</td>
+                <td>24</td>
+                <td>18</td>
+                <td><strong>71</strong></td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Kano State</td>
+                <td>21</td>
+                <td>19</td>
+                <td>15</td>
+                <td><strong>55</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      )}
+
+      {/* Ticket Pass Modal */}
+      {selectedEventModal && (
+        <div className={styles.modalOverlay} onClick={() => setSelectedEventModal(null)}>
+          <div className={styles.modalCard} onClick={e => e.stopPropagation()}>
+            <button className={styles.modalClose} onClick={() => setSelectedEventModal(null)}>✕</button>
+
+            {!ticketIssued ? (
+              <>
+                <h2>🎟️ Digital Ticket & Athlete Pass</h2>
+                <p>Event: <strong>{selectedEventModal.title}</strong></p>
+                <p>Location: 📍 {selectedEventModal.location}</p>
+
+                <div className={styles.ticketForm}>
+                  <label>Pass Type</label>
+                  <select className={styles.select}>
+                    <option>Athlete / Participant Entry Pass (NIN Verified)</option>
+                    <option>Standard Spectator Ticket (₦2,000)</option>
+                    <option>VIP Press & Media Accreditation</option>
+                  </select>
+
+                  <button 
+                    className="button-primary"
+                    onClick={() => setTicketIssued(true)}
+                  >
+                    Generate Digital QR Ticket Pass
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className={styles.qrTicketBox}>
+                <div className={styles.qrHeader}>
+                  <span>OFFICIAL DIGITAL PASS</span>
+                  <h3>{selectedEventModal.title}</h3>
+                </div>
+
+                <div className={styles.qrCodeSim}>
+                  <div className={styles.qrSquare}>
+                    <span>[ QR CODE PASS ]</span>
+                    <p>NSC-TICKET-894102</p>
+                  </div>
+                </div>
+
+                <p style={{ fontSize: "0.85rem", color: "#10b981", fontWeight: "700" }}>
+                  ✓ Pass Activated & Saved to NaijaSports Wallet
+                </p>
+
+                <button className="button-primary" onClick={() => setSelectedEventModal(null)}>
+                  Close Ticket
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }

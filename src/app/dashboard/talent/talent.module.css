@@ -320,10 +320,299 @@
   border-radius: 0.5rem;
 }
 
-.achievementIcon {
-  font-size: 1.5rem;
+.badge {
+  display: inline-block;
+  background: var(--primary);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
 }
 
-.achievementText {
+.featureTabs {
+  display: flex;
+  gap: 1rem;
+  border-bottom: 1px solid var(--surface-border);
+  padding-bottom: 0.5rem;
+}
+
+.tabBtn {
+  background: transparent;
+  border: 1px solid transparent;
+  padding: 0.6rem 1.25rem;
+  border-radius: 0.75rem;
   font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  transition: all 0.2s;
+}
+
+.activeTab {
+  background: var(--surface);
+  color: var(--primary);
+  border-color: var(--surface-border);
+  box-shadow: var(--card-shadow);
+}
+
+.verifiedBadge {
+  position: absolute;
+  bottom: 0.75rem;
+  left: 0.75rem;
+  background: rgba(11, 15, 25, 0.85);
+  color: #10b981;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  backdrop-filter: blur(4px);
+}
+
+.nameRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.25rem;
+}
+
+.ratingBadge {
+  background: rgba(212, 175, 55, 0.15);
+  color: #d4af37;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.15rem 0.5rem;
+  border-radius: 0.25rem;
+}
+
+.cardActionRow {
+  margin-top: 1rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--surface-border);
+  font-size: 0.8rem;
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* Scouting Section */
+.scoutingToolSection,
+.intlSection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.scoutBanner,
+.intlBanner {
+  background: linear-gradient(135deg, rgba(4, 139, 78, 0.12), rgba(26, 188, 156, 0.05));
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.scoutGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.25rem;
+}
+
+.scoutCard {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.scoutCardTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.ratingBox {
+  font-size: 1.1rem;
+  color: var(--primary);
+  background: rgba(4, 139, 78, 0.1);
+  padding: 0.25rem 0.6rem;
+  border-radius: 0.5rem;
+}
+
+.scoresList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+}
+
+.scoreRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem 0;
+  border-bottom: 1px dashed var(--surface-border);
+}
+
+.evalBtn {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  color: var(--foreground);
+  padding: 0.6rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.evalBtn:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.intlStatsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+/* Modal */
+.modalOverlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(11, 15, 25, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.modalCard {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 1.25rem;
+  width: 100%;
+  max-width: 680px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.modalClose {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.25rem;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.modalHeader {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+.modalImgBox {
+  width: 100px;
+  height: 100px;
+  border-radius: 1rem;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.modalHeaderInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.modalVerified {
+  font-size: 0.75rem;
+  color: #10b981;
+  font-weight: 700;
+}
+
+.modalPills {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.greenPill {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.goldPill {
+  background: rgba(212, 175, 55, 0.15);
+  color: #d4af37;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.modalBody {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.modalBody h3 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.modalBody ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.modalMetricsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.metricBox {
+  background: var(--background);
+  border: 1px solid var(--surface-border);
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.metricBox span {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: capitalize;
+}
+
+.metricBox strong {
+  font-size: 1rem;
+  color: var(--primary);
+}
+
+.modalFooter {
+  display: flex;
+  justify-content: flex-end;
+  border-top: 1px solid var(--surface-border);
+  padding-top: 1rem;
 }

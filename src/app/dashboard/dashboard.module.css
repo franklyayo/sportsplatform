@@ -156,12 +156,36 @@
   padding: 0 2rem;
 }
 
+.topbarLeft {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.specTourTriggerBtn {
+  background: linear-gradient(135deg, #048b4e, #1abc9c);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  box-shadow: 0 4px 10px rgba(4, 139, 78, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+  white-space: nowrap;
+}
+
+.specTourTriggerBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(4, 139, 78, 0.4);
+}
+
 .searchBar input {
   background-color: var(--background);
   border: 1px solid var(--surface-border);
   padding: 0.6rem 1.25rem;
   border-radius: 9999px;
-  width: 400px;
+  width: 320px;
   color: var(--foreground);
   font-family: inherit;
 }
@@ -174,7 +198,37 @@
 
 .topbarActions {
   display: flex;
+  align-items: center;
   gap: 1rem;
+}
+
+.perspectiveSelector,
+.langSelector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--background);
+  border: 1px solid var(--surface-border);
+  padding: 0.25rem 0.6rem;
+  border-radius: 0.5rem;
+}
+
+.selectorLabel {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.roleSelect,
+.langSelect {
+  background: transparent;
+  border: none;
+  color: var(--foreground);
+  font-weight: 600;
+  font-size: 0.85rem;
+  font-family: inherit;
+  outline: none;
+  cursor: pointer;
 }
 
 .iconBtn {

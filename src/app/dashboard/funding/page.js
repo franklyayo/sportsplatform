@@ -1,131 +1,211 @@
-import Image from "next/image";
-import Link from "next/link";
-import prisma from "@/lib/prisma";
+"use client";
+
+import { useState } from "react";
 import styles from "./funding.module.css";
 
-// Mock data fallback
 const mockFunding = [
   {
-    id: "1", title: "National Athlete Scholarship Program 2026", description: "A comprehensive scholarship program aimed at supporting exceptional U-20 athletes with their training, nutrition, and travel expenses for the upcoming calendar year.", provider: "Ministry of Sports", fundingType: "Scholarship", amount: "₦2,500,000", deadline: new Date("2026-11-30T23:59:00Z"), eligibleEntities: ["Athletes"], status: "Open"
+    id: "1",
+    title: "National Athlete Excellence Scholarship 2026",
+    provider: "Nigeria Sports Commission (NSC)",
+    fundingType: "Scholarship",
+    amount: "₦2,500,000 / year",
+    deadline: "2026-11-30",
+    eligibleEntities: ["Athletes"],
+    status: "Open",
+    description: "Supports U-20 elite athletes with training, nutritional stipends, international travel, and university tuition."
   },
   {
-    id: "2", title: "Grassroots Football Club Development Grant", provider: "NFF & Corporate Sponsors", fundingType: "Grant", amount: "Up to ₦10,000,000", deadline: new Date("2026-09-15T23:59:00Z"), eligibleEntities: ["Clubs"], status: "Open"
+    id: "2",
+    title: "Grassroots Football Club Development Grant",
+    provider: "NFF & Corporate Banking Partners",
+    fundingType: "Grant",
+    amount: "Up to ₦10,000,000",
+    deadline: "2026-09-15",
+    eligibleEntities: ["Clubs"],
+    status: "Open",
+    description: "Capital grant for purchasing training kits, pitch repairs, and certified coaching staff hiring."
   },
   {
-    id: "3", title: "Elite Athlete Brand Sponsorship", provider: "Global Sports Apparel Brand", fundingType: "Sponsorship", amount: "Tiered (₦1M - ₦5M) + Gear", deadline: new Date("2026-12-31T23:59:00Z"), eligibleEntities: ["Athletes"], status: "Upcoming"
-  },
-  {
-    id: "4", title: "State Federation Equipment Subsidy", provider: "National Sports Commission", fundingType: "Grant", amount: "₦15,000,000", deadline: new Date("2026-05-30T23:59:00Z"), eligibleEntities: ["Federations"], status: "Closed"
+    id: "3",
+    title: "Elite Athlete Corporate Brand Sponsorship Matching",
+    provider: "Interswitch / Nike Nigeria",
+    fundingType: "Sponsorship",
+    amount: "Tiered (₦1M - ₦5M) + Gear",
+    deadline: "2026-12-31",
+    eligibleEntities: ["Athletes"],
+    status: "Open",
+    description: "Brand sponsorship deals matching top-performing athletes with national corporate sponsors."
   }
 ];
 
-export default async function FundingDashboard() {
-  let opportunities = [];
-  
-  try {
-    const dbOpps = await prisma.fundingOpportunity.findMany({
-      orderBy: { deadline: 'asc' },
-    });
-    
-    if (dbOpps.length > 0) {
-      opportunities = dbOpps;
-    } else {
-      opportunities = mockFunding;
-    }
-  } catch (error) {
-    console.warn("DB connection failed or timeout, using mock data", error.message);
-    opportunities = mockFunding;
+const crowdfundingCampaigns = [
+  {
+    id: 101,
+    title: "Rebuild Enugu Youth Boxing Gym",
+    raised: "₦3,800,000",
+    target: "₦5,000,000",
+    donors: "142 Sports Fans",
+    percentage: 76
+  },
+  {
+    id: 102,
+    title: "Send Kano Girls Basketball Team to National Finals",
+    raised: "₦1,200,000",
+    target: "₦1,500,000",
+    donors: "89 Supporters",
+    percentage: 80
   }
+];
+
+export default function FundingDashboard() {
+  const [activeTab, setActiveTab] = useState("opportunities");
+  const [selectedOpportunityModal, setSelectedOpportunityModal] = useState(null);
+  const [appliedSuccess, setAppliedSuccess] = useState(false);
 
   return (
     <div className={styles.fundingDashboard}>
       <div className={styles.header}>
         <div>
-          <h1 className={styles.title}>Financing & Funding</h1>
-          <p className={styles.subtitle}>Discover grants, scholarships, and sponsorships for your sports career or organization.</p>
+          <span className={styles.badge}>Module 7: Financing & Opportunities</span>
+          <h1 className={styles.title}>Grants, Loans, Scholarships & Crowdfunding</h1>
+          <p className={styles.subtitle}>
+            Financial opportunities for athletes, coaches, clubs & state federations across Nigeria.
+          </p>
         </div>
-        <div className={styles.actions}>
-          <button className="button-primary">+ Post Opportunity</button>
-        </div>
+
+        <button className="button-primary" onClick={() => alert("Opportunity Creator Form Modal...")}>
+          + Post Funding Opportunity
+        </button>
       </div>
 
-      <div className={styles.mainLayout}>
-        {/* Filters Sidebar */}
-        <aside className={`${styles.filtersSidebar} card`}>
-          <h3 className={styles.filterTitle}>Funding Filters</h3>
-          
-          <div className={styles.filterGroup}>
-            <label>Funding Type</label>
-            <select className={styles.select}>
-              <option>All Types</option>
-              <option>Grant</option>
-              <option>Scholarship</option>
-              <option>Sponsorship</option>
-              <option>Investment</option>
-            </select>
-          </div>
+      {/* Navigation Tabs */}
+      <div className={styles.featureTabs}>
+        <button 
+          className={`${styles.tabBtn} ${activeTab === "opportunities" ? styles.activeTab : ""}`}
+          onClick={() => setActiveTab("opportunities")}
+        >
+          💰 Grants, Funds & Scholarships
+        </button>
+        <button 
+          className={`${styles.tabBtn} ${activeTab === "crowdfunding" ? styles.activeTab : ""}`}
+          onClick={() => setActiveTab("crowdfunding")}
+        >
+          🤝 Grassroots Crowdfunding & Donations
+        </button>
+      </div>
 
-          <div className={styles.filterGroup}>
-            <label>Eligible Entity</label>
-            <select className={styles.select}>
-              <option>Who are you?</option>
-              <option>Individual Athlete</option>
-              <option>Sports Club</option>
-              <option>Federation / Council</option>
-            </select>
-          </div>
-
-          <div className={styles.filterGroup}>
-            <label>Status</label>
-            <select className={styles.select}>
-              <option>Open Applications</option>
-              <option>Upcoming</option>
-              <option>Closed</option>
-            </select>
-          </div>
-          
-          <button className={styles.applyBtn}>Apply Filters</button>
-        </aside>
-
-        {/* Funding Board */}
+      {activeTab === "opportunities" && (
         <div className={styles.fundingBoard}>
-          {opportunities.map(opp => {
-            const isClosed = opp.status === 'Closed';
-            const isUpcoming = opp.status === 'Upcoming';
-            const statusClass = isClosed ? styles.statusClosed : (isUpcoming ? styles.statusUpcoming : styles.statusOpen);
-            
-            return (
-              <Link href={`/dashboard/funding/${opp.id}`} key={opp.id} className={`${styles.fundingCard} card`}>
-                <div className={styles.cardHeader}>
-                  <span className={`${styles.statusBadge} ${statusClass}`}>{opp.status}</span>
-                  <span className={styles.fundingType}>{opp.fundingType}</span>
+          {mockFunding.map(opp => (
+            <div key={opp.id} className={`${styles.fundingCard} card`}>
+              <div className={styles.cardHeader}>
+                <span className={styles.statusBadge}>{opp.status}</span>
+                <span className={styles.fundingType}>{opp.fundingType}</span>
+              </div>
+              
+              <h3 className={styles.oppTitle}>{opp.title}</h3>
+              <p className={styles.provider}>By {opp.provider}</p>
+              
+              <div className={styles.amountBox}>
+                <span className={styles.amountLabel}>Total Funding Value</span>
+                <span className={styles.amountValue}>{opp.amount}</span>
+              </div>
+
+              <p className={styles.oppDesc}>{opp.description}</p>
+              
+              <div className={styles.cardFooter}>
+                <div className={styles.deadlineInfo}>
+                  <span className={styles.deadlineLabel}>Deadline</span>
+                  <span className={styles.deadlineValue}>{opp.deadline}</span>
                 </div>
                 
-                <h3 className={styles.oppTitle}>{opp.title}</h3>
-                <p className={styles.provider}>By {opp.provider}</p>
-                
-                <div className={styles.amountBox}>
-                  <span className={styles.amountLabel}>Total Funding Available</span>
-                  <span className={styles.amountValue}>{opp.amount}</span>
-                </div>
-                
-                <div className={styles.cardFooter}>
-                  <div className={styles.deadlineInfo}>
-                    <span className={styles.deadlineLabel}>Deadline</span>
-                    <span className={styles.deadlineValue}>{new Date(opp.deadline).toLocaleDateString('en-GB')}</span>
-                  </div>
-                  
-                  <div className={styles.eligibleBadges}>
-                    {opp.eligibleEntities.map((entity, i) => (
-                      <span key={i} className={styles.entityBadge}>{entity}</span>
-                    ))}
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
+                <button 
+                  className="button-primary"
+                  onClick={() => {
+                    setSelectedOpportunityModal(opp);
+                    setAppliedSuccess(false);
+                  }}
+                >
+                  Apply Now
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
-      </div>
+      )}
+
+      {activeTab === "crowdfunding" && (
+        <div className={styles.crowdGrid}>
+          {crowdfundingCampaigns.map(c => (
+            <div key={c.id} className={`${styles.crowdCard} card`}>
+              <h3>{c.title}</h3>
+              
+              <div className={styles.progressTrack}>
+                <div className={styles.progressFill} style={{ width: `${c.percentage}%` }}></div>
+              </div>
+
+              <div className={styles.crowdMeta}>
+                <span>Raised: <strong>{c.raised}</strong></span>
+                <span>Target: <strong>{c.target}</strong></span>
+              </div>
+              <p className={styles.donorCount}>❤️ Supported by {c.donors}</p>
+
+              <button 
+                className="button-primary"
+                style={{ marginTop: '1rem' }}
+                onClick={() => alert(`Redirecting to Paystack / Interswitch donation for ${c.title}...`)}
+              >
+                💸 Back This Campaign (Donate)
+              </button>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Grant Application Modal */}
+      {selectedOpportunityModal && (
+        <div className={styles.modalOverlay} onClick={() => setSelectedOpportunityModal(null)}>
+          <div className={styles.modalCard} onClick={e => e.stopPropagation()}>
+            <button className={styles.modalClose} onClick={() => setSelectedOpportunityModal(null)}>✕</button>
+
+            {!appliedSuccess ? (
+              <>
+                <h2>📝 Apply for {selectedOpportunityModal.title}</h2>
+                <p>Provider: {selectedOpportunityModal.provider} • Value: {selectedOpportunityModal.amount}</p>
+
+                <div className={styles.appForm}>
+                  <label>Full Name / Organization Name</label>
+                  <input type="text" defaultValue="Dr. Paul O. / Lagos Youth Sports" className={styles.input} />
+
+                  <label>NIN / CAC Verification Number</label>
+                  <input type="text" defaultValue="NIN-894102948" className={styles.input} />
+
+                  <label>Statement of Purpose & Budget Pitch</label>
+                  <textarea rows={4} placeholder="Briefly describe how funding will be used..." className={styles.textarea} />
+
+                  <button 
+                    className="button-primary"
+                    onClick={() => setAppliedSuccess(true)}
+                  >
+                    Submit Official Funding Application
+                  </button>
+                </div>
+              </>
+            ) : (
+              <div className={styles.successBox}>
+                <div className={styles.successIcon}>🎉</div>
+                <h3>Application Submitted Successfully!</h3>
+                <p>Application Ref: <strong>GRANT-NSC-2026-9841</strong></p>
+                <p>The NSC Audit & Grants Committee will review your NIN-verified file within 5 business days.</p>
+                <button className="button-primary" onClick={() => setSelectedOpportunityModal(null)}>
+                  Close Application
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
