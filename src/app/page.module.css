@@ -123,8 +123,18 @@
   color: var(--primary);
 }
 
+.navMainCta {
+  display: none;
+}
+
 @media (min-width: 640px) {
   .navGhost {
+    display: inline-flex;
+  }
+}
+
+@media (min-width: 900px) {
+  .navMainCta {
     display: inline-flex;
   }
 }

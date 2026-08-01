@@ -109,7 +109,7 @@ export default function Home() {
 
             <div className={styles.navActions}>
               <Link href="/login" className={styles.navGhost}>Sign in</Link>
-              <Link href="/dashboard" className="button-primary">
+              <Link href="/dashboard" className={`button-primary ${styles.navMainCta}`}>
                 Enter Portal →
               </Link>
               <button
