@@ -6,10 +6,10 @@ import styles from "../talent.module.css";
 // Fallback mock data
 const mockTalents = [
   {
-    id: "1", name: "Chinedu Obasi", sport: "Football", position: "Striker", stateOfOrigin: "Lagos", age: 18, height: 185, weight: 78, preferredFoot: "Right", stats: { goals: 24, assists: 8, appearances: 30 }, achievements: ["Top Scorer, U-17 State League", "MVP Lagos Youth Cup 2025"], mediaUrl: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=300&auto=format&fit=crop"
+    id: "1", name: "Chinedu Obasi", sport: "Football", position: "Striker", stateOfOrigin: "Lagos", age: 18, height: 185, weight: 78, preferredFoot: "Right", stats: { goals: 24, assists: 8, appearances: 30 }, achievements: ["Top Scorer, U-17 State League", "MVP Lagos Youth Cup 2025"], mediaUrl: "/images/nigerian_athlete_1.png"
   },
   {
-    id: "2", name: "Tunde Bakare", sport: "Football", position: "Midfielder", stateOfOrigin: "Ogun", age: 20, height: 178, weight: 72, preferredFoot: "Both", stats: { goals: 5, assists: 15, passAccuracy: "89%" }, achievements: ["Best Midfielder Ogun State Championship"], mediaUrl: "https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?q=80&w=300&auto=format&fit=crop"
+    id: "2", name: "Tunde Bakare", sport: "Football", position: "Midfielder", stateOfOrigin: "Ogun", age: 20, height: 178, weight: 72, preferredFoot: "Both", stats: { goals: 5, assists: 15, passAccuracy: "89%" }, achievements: ["Best Midfielder Ogun State Championship"], mediaUrl: "/images/nigerian_athlete_2.png"
   }
 ];
 

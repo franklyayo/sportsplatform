@@ -15,7 +15,7 @@ const mockOrganizations = [
     headquarters: "Package B, National Stadium, Abuja",
     contactEmail: "info@nff.ng",
     website: "nff.ng",
-    logoUrl: "https://images.unsplash.com/photo-1518605368461-1eb7b63f2735?q=80&w=200&auto=format&fit=crop"
+    logoUrl: "/images/nff_logo.png"
   },
   {
     id: "2",
@@ -27,7 +27,7 @@ const mockOrganizations = [
     headquarters: "Teslim Balogun Stadium, Surulere, Lagos",
     contactEmail: "sports@lagosstate.gov.ng",
     website: "sports.lagosstate.gov.ng",
-    logoUrl: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=200&auto=format&fit=crop"
+    logoUrl: "/images/nff_logo.png"
   },
   {
     id: "3",

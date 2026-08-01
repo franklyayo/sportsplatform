@@ -6,7 +6,7 @@ import { BookButton } from "@/components/ActionButtons";
 // Fallback mock data
 const mockFacilities = [
   {
-    id: "1", name: "Godswill Akpabio International Stadium", description: "A state-of-the-art multi-purpose sports complex known for its stunning architecture. Modeled after the Allianz Arena, it serves as the home ground for the Nigerian Super Eagles and Akwa United.\n\nThe facility features bulletproof VVIP areas, world-class dressing rooms, and a digital floodlight system suitable for high-definition broadcasting.", facilityType: "Stadium", location: "Uyo, Akwa Ibom", capacity: 30000, condition: "World Class", amenities: ["Floodlights", "VIP Suites", "Athletics Track", "Medical Center", "Media Tribune", "Helipad"], imageUrl: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=1200&auto=format&fit=crop", bookingAvailable: false
+    id: "1", name: "Godswill Akpabio International Stadium", description: "A state-of-the-art multi-purpose sports complex known for its stunning architecture. Modeled after the Allianz Arena, it serves as the home ground for the Nigerian Super Eagles and Akwa United.\n\nThe facility features bulletproof VVIP areas, world-class dressing rooms, and a digital floodlight system suitable for high-definition broadcasting.", facilityType: "Stadium", location: "Uyo, Akwa Ibom", capacity: 30000, condition: "World Class", amenities: ["Floodlights", "VIP Suites", "Athletics Track", "Medical Center", "Media Tribune", "Helipad"], imageUrl: "/images/nigerian_stadium.png", bookingAvailable: false
   }
 ];
 

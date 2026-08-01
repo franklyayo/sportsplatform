@@ -22,7 +22,7 @@ const mockTalents = [
     scoutRating: "9.2 / 10",
     achievements: ["Top Scorer, U-17 State League", "MVP Lagos Youth Cup 2025"],
     stats: { goals: 24, assists: 8, sprintSpeed: "34 km/h", shotPower: "88" },
-    mediaUrl: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=400&auto=format&fit=crop"
+    mediaUrl: "/images/nigerian_athlete_1.png"
   },
   {
     id: "2",
@@ -40,7 +40,7 @@ const mockTalents = [
     scoutRating: "8.9 / 10",
     achievements: ["Best Midfielder Ogun State Championship"],
     stats: { goals: 5, assists: 15, passAccuracy: "89%", tackles: "3.2/game" },
-    mediaUrl: "https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?q=80&w=400&auto=format&fit=crop"
+    mediaUrl: "/images/nigerian_athlete_2.png"
   },
   {
     id: "3",
@@ -58,7 +58,7 @@ const mockTalents = [
     scoutRating: "9.0 / 10",
     achievements: ["Captain, Eastern Youth Academy", "Clean Sheet Record (15)"],
     stats: { tacklesPerGame: 4.5, interceptions: 62, aerialDuelsWon: "84%" },
-    mediaUrl: "https://images.unsplash.com/photo-1518605368461-1eb7b63f2735?q=80&w=400&auto=format&fit=crop"
+    mediaUrl: "/images/nigerian_athlete_1.png"
   },
   {
     id: "4",
@@ -76,7 +76,7 @@ const mockTalents = [
     scoutRating: "9.4 / 10",
     achievements: ["MVP Northern Zone Basketball Championship"],
     stats: { pointsPerGame: "22.4", assistsPerGame: "8.1", steals: "2.8" },
-    mediaUrl: "https://images.unsplash.com/photo-1551280857-2b9bbe5260fc?q=80&w=400&auto=format&fit=crop"
+    mediaUrl: "/images/nigerian_athlete_2.png"
   },
   {
     id: "5",
@@ -94,7 +94,7 @@ const mockTalents = [
     scoutRating: "9.6 / 10",
     achievements: ["Gold Medal, 100m National Junior Trials (10.98s)"],
     stats: { pb100m: "10.98s", pb200m: "22.45s", reactionTime: "0.12s" },
-    mediaUrl: "https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=400&auto=format&fit=crop"
+    mediaUrl: "/images/nigerian_athlete_1.png"
   }
 ];
 

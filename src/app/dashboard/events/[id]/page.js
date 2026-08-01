@@ -6,7 +6,7 @@ import { RegisterButton } from "@/components/ActionButtons";
 // Fallback mock data
 const mockEvents = [
   {
-    id: "1", title: "National U-17 Football Championship", description: "The premier youth football tournament showcasing the best talents across all 36 states. Organized by the NFF, this tournament serves as the primary selection grounds for the national youth team.\n\nScouts from major European and domestic clubs will be in attendance.", sport: "Football", location: "Lagos National Stadium, Surulere", date: new Date("2026-08-15T10:00:00Z"), endDate: new Date("2026-08-22T18:00:00Z"), status: "Upcoming", bannerUrl: "https://images.unsplash.com/photo-1518605368461-1eb7b63f2735?q=80&w=1200&auto=format&fit=crop", participantsLimit: 36
+    id: "1", title: "National U-17 Football Championship", description: "The premier youth football tournament showcasing the best talents across all 36 states. Organized by the NFF, this tournament serves as the primary selection grounds for the national youth team.\n\nScouts from major European and domestic clubs will be in attendance.", sport: "Football", location: "Lagos National Stadium, Surulere", date: new Date("2026-08-15T10:00:00Z"), endDate: new Date("2026-08-22T18:00:00Z"), status: "Upcoming", bannerUrl: "/images/nigerian_sports_event.png", participantsLimit: 36
   }
 ];
 

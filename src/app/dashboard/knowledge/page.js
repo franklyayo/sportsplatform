@@ -13,7 +13,7 @@ const mockResources = [
     category: "Policies & Laws",
     author: "Federal Ministry of Sports & NSC",
     fileSize: "4.8 MB",
-    thumbnailUrl: "https://images.unsplash.com/photo-1551280857-2b9bbe5260fc?q=80&w=600&auto=format&fit=crop",
+    thumbnailUrl: "/images/nigerian_coach.png",
     fullText: "NATIONAL SPORTS INDUSTRY POLICY (NSIP 2026)\n\n1. EXECUTIVE SUMMARY:\nThis policy establishes sports as a key economic driver for Nigeria, classifying sports infrastructure as national priority infrastructure eligible for pioneer tax incentives.\n\n2. GOVERNANCE & INTEGRITY:\nAll national federations must comply with quarterly financial audits and NIN-based athlete identification registry.\n\n3. INFRASTRUCTURE & LEASES:\nPublic-Private Partnerships (PPP) guidelines for stadium management and long-term facility leases."
   },
   {
@@ -24,7 +24,7 @@ const mockResources = [
     category: "Anti-Doping & Integrity",
     author: "WADA & National Anti-Doping Agency",
     fileSize: "2.4 MB",
-    thumbnailUrl: "https://images.unsplash.com/photo-1518605368461-1eb7b63f2735?q=80&w=600&auto=format&fit=crop",
+    thumbnailUrl: "/images/nigerian_coach.png",
     fullText: "NATIONAL ANTI-DOPING REGULATIONS 2026\n\n1. SCOPE:\nApplies to all registered athletes, coaches, and medical personnel participating in sanctioned Nigerian sports events.\n\n2. TESTING PROTOCOLS:\nIn-competition and out-of-competition testing mandatory for national trials and league matches."
   },
   {
@@ -35,7 +35,7 @@ const mockResources = [
     category: "Statistics & Research",
     author: "Nigeria Sports Statistics Bureau",
     fileSize: "6.1 MB",
-    thumbnailUrl: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=600&auto=format&fit=crop",
+    thumbnailUrl: "/images/nigerian_coach.png",
     fullText: "STATISTICAL REPORT ON NIGERIAN SPORTS ECONOMY 2026\n\n- Total Verified Athletes: 1,420,850\n- Total Active Facilities: 8,940\n- Grassroots Economic Value: ₦185.4 Billion"
   }
 ];

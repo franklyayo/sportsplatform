@@ -16,7 +16,7 @@ export default function MarketplacePage() {
       price: 25000,
       rating: "4.9 ★",
       seller: "Nike Nigeria Official Store",
-      img: "https://images.unsplash.com/photo-1577219491135-ce391730fb2c?q=80&w=400&auto=format&fit=crop"
+      img: "/images/super_eagles_jersey.png"
     },
     {
       id: 2,
@@ -25,7 +25,7 @@ export default function MarketplacePage() {
       price: 35000,
       rating: "4.8 ★",
       seller: "NBBF Certified Gear",
-      img: "https://images.unsplash.com/photo-1519861531473-9200262188bf?q=80&w=400&auto=format&fit=crop"
+      img: "/images/football_equipment.png"
     },
     {
       id: 3,
@@ -34,7 +34,7 @@ export default function MarketplacePage() {
       price: 18500,
       rating: "4.7 ★",
       seller: "Lagos Sports Academy Supplies",
-      img: "https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=400&auto=format&fit=crop"
+      img: "/images/super_eagles_jersey.png"
     },
     {
       id: 4,
@@ -43,7 +43,7 @@ export default function MarketplacePage() {
       price: 42000,
       rating: "5.0 ★",
       seller: "AFN Equipment Partner",
-      img: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=400&auto=format&fit=crop"
+      img: "/images/football_equipment.png"
     },
     {
       id: 5,
@@ -52,7 +52,7 @@ export default function MarketplacePage() {
       price: 28000,
       rating: "4.8 ★",
       seller: "Nigeria Boxing Federation Hub",
-      img: "https://images.unsplash.com/photo-1549719386-74dfcbf7dbed?q=80&w=400&auto=format&fit=crop"
+      img: "/images/super_eagles_jersey.png"
     },
     {
       id: 6,
@@ -61,7 +61,7 @@ export default function MarketplacePage() {
       price: 12000,
       rating: "4.6 ★",
       seller: "NaijaFit Sports",
-      img: "https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=400&auto=format&fit=crop"
+      img: "/images/football_equipment.png"
     }
   ];
 

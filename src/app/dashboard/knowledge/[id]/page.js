@@ -5,7 +5,7 @@ import styles from "../knowledge.module.css";
 // Fallback mock data
 const mockResources = [
   {
-    id: "1", title: "Advanced High-Intensity Interval Training for Footballers", description: "Learn the core principles of HIIT and how it applies specifically to the stamina demands of professional football.\n\nIn this comprehensive breakdown, we explore:\n- The science behind VO2 max improvement.\n- Position-specific sprint drills for wingers vs center backs.\n- Recovery protocols to prevent muscular injuries during peak season.\n\nEnsure you consult with your team physiotherapist before integrating these advanced loads into your weekly micro-cycle.", mediaType: "Video", category: "Training", thumbnailUrl: "https://images.unsplash.com/photo-1518605368461-1eb7b63f2735?q=80&w=1200&auto=format&fit=crop", contentUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1", author: "National Sports Science Board"
+    id: "1", title: "Advanced High-Intensity Interval Training for Footballers", description: "Learn the core principles of HIIT and how it applies specifically to the stamina demands of professional football.\n\nIn this comprehensive breakdown, we explore:\n- The science behind VO2 max improvement.\n- Position-specific sprint drills for wingers vs center backs.\n- Recovery protocols to prevent muscular injuries during peak season.\n\nEnsure you consult with your team physiotherapist before integrating these advanced loads into your weekly micro-cycle.", mediaType: "Video", category: "Training", thumbnailUrl: "/images/nigerian_coach.png", contentUrl: "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1", author: "National Sports Science Board"
   }
 ];
 

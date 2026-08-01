@@ -14,7 +14,7 @@ export default function MediaHubPage() {
       type: "Documentary",
       duration: "45 mins",
       views: "124K views",
-      thumb: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=400&auto=format&fit=crop"
+      thumb: "/images/nigerian_sports_media.png"
     },
     {
       id: 2,
@@ -22,7 +22,7 @@ export default function MediaHubPage() {
       type: "Match Highlights",
       duration: "12 mins",
       views: "45K views",
-      thumb: "https://images.unsplash.com/photo-1517649763962-0c623066013b?q=80&w=400&auto=format&fit=crop"
+      thumb: "/images/nigerian_sports_media.png"
     },
     {
       id: 3,
@@ -30,7 +30,7 @@ export default function MediaHubPage() {
       type: "Talent Showcase",
       duration: "18 mins",
       views: "29K views",
-      thumb: "https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?q=80&w=400&auto=format&fit=crop"
+      thumb: "/images/nigerian_sports_media.png"
     }
   ];
 

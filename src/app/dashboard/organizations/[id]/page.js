@@ -6,7 +6,7 @@ import styles from "../organizations.module.css";
 // Fallback mock data
 const mockOrganizations = [
   {
-    id: "1", name: "Nigeria Football Federation (NFF)", orgType: "National Federation", sport: "Football", complianceMetrics: ["NSC Certified", "Audit Passed", "FIFA Compliant"], establishedYear: 1945, headquarters: "Package B, MKO Abiola National Stadium, Abuja", contactEmail: "info@thenff.com", website: "https://thenff.com", logoUrl: "https://images.unsplash.com/photo-1518605368461-1eb7b63f2735?q=80&w=200&auto=format&fit=crop"
+    id: "1", name: "Nigeria Football Federation (NFF)", orgType: "National Federation", sport: "Football", complianceMetrics: ["NSC Certified", "Audit Passed", "FIFA Compliant"], establishedYear: 1945, headquarters: "Package B, MKO Abiola National Stadium, Abuja", contactEmail: "info@thenff.com", website: "https://thenff.com", logoUrl: "/images/nff_logo.png"
   }
 ];
 

@@ -13,7 +13,7 @@ const mockFacilities = [
     capacity: 30000,
     condition: "World Class",
     amenities: ["Floodlights", "VIP Suites", "Athletics Track", "VAR Ready", "Press Center"],
-    imageUrl: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?q=80&w=600&auto=format&fit=crop",
+    imageUrl: "/images/nigerian_stadium.png",
     bookingAvailable: true,
     pricePerDay: "₦2,500,000"
   },
@@ -25,7 +25,7 @@ const mockFacilities = [
     capacity: 60491,
     condition: "Excellent",
     amenities: ["Natural Grass", "Velodrome", "Indoor Sports Hall", "VIP Lounge"],
-    imageUrl: "https://images.unsplash.com/photo-1518605368461-1eb7b63f2735?q=80&w=600&auto=format&fit=crop",
+    imageUrl: "/images/nigerian_stadium.png",
     bookingAvailable: true,
     pricePerDay: "₦4,000,000"
   },
@@ -37,7 +37,7 @@ const mockFacilities = [
     capacity: 24325,
     condition: "Good",
     amenities: ["Artificial Turf", "Locker Rooms", "Olympic Pool", "Media Hub"],
-    imageUrl: "https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?q=80&w=600&auto=format&fit=crop",
+    imageUrl: "/images/nigerian_stadium.png",
     bookingAvailable: true,
     pricePerDay: "₦1,800,000"
   },
@@ -49,7 +49,7 @@ const mockFacilities = [
     capacity: 5000,
     condition: "World Class",
     amenities: ["Natural Hybrid Turf", "Cryotherapy Lab", "Gymnasium", "Hotel Lodge"],
-    imageUrl: "https://images.unsplash.com/photo-1551280857-2b9bbe5260fc?q=80&w=600&auto=format&fit=crop",
+    imageUrl: "/images/nigerian_stadium.png",
     bookingAvailable: true,
     pricePerDay: "₦1,200,000"
   }

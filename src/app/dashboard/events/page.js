@@ -13,7 +13,7 @@ const mockEvents = [
     date: "2026-08-15",
     status: "Upcoming",
     ticketsAvailable: 1500,
-    bannerUrl: "https://images.unsplash.com/photo-1518605368461-1eb7b63f2735?q=80&w=600&auto=format&fit=crop"
+    bannerUrl: "/images/nigerian_sports_event.png"
   },
   {
     id: "2",
@@ -23,7 +23,7 @@ const mockEvents = [
     date: "2026-09-02",
     status: "Upcoming",
     ticketsAvailable: 5000,
-    bannerUrl: "https://images.unsplash.com/photo-1551280857-2b9bbe5260fc?q=80&w=600&auto=format&fit=crop"
+    bannerUrl: "/images/nigerian_sports_event.png"
   },
   {
     id: "3",
@@ -33,7 +33,7 @@ const mockEvents = [
     date: "2026-07-28",
     status: "Ongoing",
     ticketsAvailable: 420,
-    bannerUrl: "https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?q=80&w=600&auto=format&fit=crop"
+    bannerUrl: "/images/nigerian_sports_event.png"
   }
 ];
 

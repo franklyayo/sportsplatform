@@ -1,28 +1,43 @@
 :root {
+  /* Nigeria brand */
   --ng-green: #048b4e;
   --ng-green-light: #1abc9c;
   --ng-green-dark: #025932;
-  --background: #f8fafc;
-  --foreground: #0f172a;
+  --ng-green-deep: #013d22;
+  --ng-gold: #f59e0b;
+  --ng-gold-light: #fbbf24;
+  --ng-white: #ffffff;
+
+  --background: #f4f7f5;
+  --foreground: #0b1620;
   --surface: #ffffff;
-  --surface-border: #e2e8f0;
+  --surface-elevated: #ffffff;
+  --surface-border: #dce5df;
+  --surface-muted: #eef4f0;
   --card-bg: #ffffff;
-  --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  
+  --card-shadow: 0 1px 2px rgba(11, 22, 32, 0.04), 0 8px 24px rgba(11, 22, 32, 0.06);
+
   --primary: var(--ng-green);
   --primary-foreground: #ffffff;
-  --text-muted: #64748b;
+  --accent: var(--ng-gold);
+  --text-muted: #5b6b63;
+  --danger: #dc2626;
+  --radius: 1rem;
+  --radius-sm: 0.625rem;
+  --radius-full: 9999px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0b0f19;
-    --foreground: #f8fafc;
-    --surface: #151e2f;
-    --surface-border: #1e293b;
-    --card-bg: #151e2f;
-    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
-    --text-muted: #94a3b8;
+    --background: #070d0a;
+    --foreground: #f0f7f3;
+    --surface: #0f1a14;
+    --surface-elevated: #15241c;
+    --surface-border: #1e3328;
+    --surface-muted: #122018;
+    --card-bg: #0f1a14;
+    --card-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 32px rgba(0, 0, 0, 0.45);
+    --text-muted: #8fa399;
   }
 }
 
@@ -34,7 +49,7 @@ body {
 }
 
 body {
-  font-family: var(--font-inter), Arial, sans-serif;
+  font-family: var(--font-inter), system-ui, -apple-system, "Segoe UI", sans-serif;
   color: var(--foreground);
   background-color: var(--background);
   -webkit-font-smoothing: antialiased;
@@ -42,6 +57,7 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
+  line-height: 1.5;
 }
 
 * {
@@ -60,22 +76,27 @@ button {
   font-family: inherit;
 }
 
-/* Reusable Utilities */
+img {
+  max-width: 100%;
+}
+
+/* ── Utilities ── */
+
 .glass {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(16px) saturate(1.2);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2);
   border-bottom: 1px solid var(--surface-border);
 }
 
 @media (prefers-color-scheme: dark) {
   .glass {
-    background: rgba(21, 30, 47, 0.75);
+    background: rgba(15, 26, 20, 0.85);
   }
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, var(--ng-green-light), var(--ng-green));
+  background: linear-gradient(135deg, var(--ng-green-light) 0%, var(--ng-green) 50%, var(--ng-gold) 130%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -83,46 +104,119 @@ button {
 
 .container {
   width: 100%;
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 2rem;
+  }
 }
 
 .button-primary {
-  background-color: var(--primary);
+  background: linear-gradient(135deg, var(--ng-green) 0%, var(--ng-green-dark) 100%);
   color: var(--primary-foreground);
   border: none;
-  padding: 0.75rem 1.5rem;
-  border-radius: 9999px;
-  font-weight: 600;
-  transition: all 0.2s ease;
+  padding: 0.8rem 1.6rem;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 14px rgba(4, 139, 78, 0.35);
 }
 
 .button-primary:hover {
-  background-color: var(--ng-green-dark);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(4, 139, 78, 0.3);
+  box-shadow: 0 8px 24px rgba(4, 139, 78, 0.4);
+  filter: brightness(1.05);
+}
+
+.button-primary:active {
+  transform: translateY(0);
 }
 
 .card {
   background-color: var(--card-bg);
   border: 1px solid var(--surface-border);
-  border-radius: 1rem;
+  border-radius: var(--radius);
   padding: 1.5rem;
   box-shadow: var(--card-shadow);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  border-color: rgba(4, 139, 78, 0.25);
+  box-shadow: 0 12px 32px rgba(4, 139, 78, 0.12), 0 4px 8px rgba(0, 0, 0, 0.04);
 }
 
 @media (prefers-color-scheme: dark) {
   .card:hover {
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
   }
+}
+
+/* Nigeria flag stripe accent */
+.ng-stripe {
+  background: linear-gradient(
+    90deg,
+    var(--ng-green) 0%,
+    var(--ng-green) 33%,
+    #ffffff 33%,
+    #ffffff 66%,
+    var(--ng-green) 66%,
+    var(--ng-green) 100%
+  );
+  height: 4px;
+  width: 100%;
+}
+
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: var(--radius-full);
+  background: rgba(4, 139, 78, 0.12);
+  color: var(--primary);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid rgba(4, 139, 78, 0.2);
+}
+
+/* Scrollbar polish */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(4, 139, 78, 0.25);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(4, 139, 78, 0.45);
+}
+
+/* Focus rings */
+:focus-visible {
+  outline: 2px solid var(--ng-green-light);
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background: rgba(4, 139, 78, 0.25);
+  color: var(--foreground);
 }
