@@ -149,10 +149,7 @@ export default function Home() {
         <div className={styles.heroOverlay} />
         <div className={`container ${styles.heroInner}`}>
           <div className={styles.heroContent}>
-            <div className={styles.heroTag}>
-              <span className={styles.heroTagDot} />
-              Federal Ministry of Sports · MVP Showcase
-            </div>
+
             <h1 className={styles.heroTitle}>
               One portal for <span>everything sports</span> in Nigeria.
             </h1>
