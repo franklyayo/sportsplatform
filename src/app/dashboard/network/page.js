@@ -46,8 +46,8 @@ export default function NetworkDashboard() {
   const [activeTab, setActiveTab] = useState("feed"); // feed, forums, messages
   const [activeChatUser, setActiveChatUser] = useState(null);
   const [messages, setMessages] = useState([
-    { sender: "Mark Smith (Euro Talent Scout)", text: "Hello! Impressive stats from the U-17 Lagos trials." },
-    { sender: "You", text: "Thank you! I have uploaded my video highlights on my platform profile." }
+    { sender: "Amina Bello (AFCON Scout Network)", text: "Hello! Impressive stats from the U-17 Lagos trials." },
+    { sender: "You", text: "Thank you! I have uploaded my video highlights on my platform profile." },
   ]);
   const [chatInput, setChatInput] = useState("");
 

@@ -1,23 +1,30 @@
 /**
  * Central demo media for the Nigeria Sports MVP.
- * Uses local venue/sports imagery + Nigerian-coded avatar SVGs
- * so the presentation never relies on mismatched stock faces.
+ * Local Nigerian-coded photography + SVG brand art — no mismatched stock faces.
  */
 
 export const DEMO = {
   hero: "/images/hero-naija.svg",
+  stadium: "/images/nigerian_stadium.png",
+  athleteMale: "/images/nigerian_athlete_1.png",
+  athleteFemale: "/images/nigerian_athlete_2.png",
+  coach: "/images/nigerian_coach.png",
+  event: "/images/nigerian_sports_event.png",
+  media: "/images/nigerian_sports_media.png",
+  jersey: "/images/super_eagles_jersey.png",
+  equipment: "/images/football_equipment.png",
+  nffLogo: "/images/nff_logo.png",
+  // Venue / abstract sports scenes
   pitch: "/images/demo/pitch-wide.jpg",
-  stadium: "/images/demo/stadium-pitch.jpg",
   stadiumNight: "/images/demo/stadium-crowd.jpg",
   football: "/images/demo/football-action.jpg",
   footballField: "/images/demo/football-field.jpg",
-  footballKit: "/images/demo/football-kit.jpg",
   basketball: "/images/demo/basketball-court.jpg",
   volleyball: "/images/demo/volleyball.jpg",
   athletics: "/images/demo/athletics-sprint.jpg",
   ballClose: "/images/demo/african-football-1.jpg",
   crowd: "/images/demo/crowd-stadium.jpg",
-  stadiumHero: "/images/demo/stadium-hero.jpg",
+  footballKit: "/images/demo/football-kit.jpg",
 };
 
 export const AVATARS = {

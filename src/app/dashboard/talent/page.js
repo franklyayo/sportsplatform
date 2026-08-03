@@ -22,7 +22,7 @@ const mockTalents = [
     scoutRating: "9.2 / 10",
     achievements: ["Top Scorer, U-17 State League", "MVP Lagos Youth Cup 2025"],
     stats: { goals: 24, assists: 8, sprintSpeed: "34 km/h", shotPower: "88" },
-    mediaUrl: "/images/nigerian_athlete_1.png"
+    mediaUrl: "/images/nigerian_athlete_1.png",
   },
   {
     id: "2",
@@ -40,17 +40,17 @@ const mockTalents = [
     scoutRating: "8.9 / 10",
     achievements: ["Best Midfielder Ogun State Championship"],
     stats: { goals: 5, assists: 15, passAccuracy: "89%", tackles: "3.2/game" },
-    mediaUrl: "/images/nigerian_athlete_2.png"
+    mediaUrl: "/images/avatars/tunde.svg",
   },
   {
     id: "3",
-    name: "Ngozi Okonjo",
+    name: "Ngozi Okoro",
     sport: "Football",
     position: "Center Back",
     stateOfOrigin: "Enugu",
     age: 19,
-    height: 190,
-    weight: 85,
+    height: 178,
+    weight: 72,
     preferredFoot: "Right",
     isVerified: true,
     nin: "NIN-2940184721",
@@ -58,7 +58,7 @@ const mockTalents = [
     scoutRating: "9.0 / 10",
     achievements: ["Captain, Eastern Youth Academy", "Clean Sheet Record (15)"],
     stats: { tacklesPerGame: 4.5, interceptions: 62, aerialDuelsWon: "84%" },
-    mediaUrl: "/images/nigerian_athlete_1.png"
+    mediaUrl: "/images/avatars/ngozi.svg",
   },
   {
     id: "4",
@@ -76,7 +76,7 @@ const mockTalents = [
     scoutRating: "9.4 / 10",
     achievements: ["MVP Northern Zone Basketball Championship"],
     stats: { pointsPerGame: "22.4", assistsPerGame: "8.1", steals: "2.8" },
-    mediaUrl: "/images/nigerian_athlete_2.png"
+    mediaUrl: "/images/avatars/ibrahim.svg",
   },
   {
     id: "5",
@@ -94,8 +94,8 @@ const mockTalents = [
     scoutRating: "9.6 / 10",
     achievements: ["Gold Medal, 100m National Junior Trials (10.98s)"],
     stats: { pb100m: "10.98s", pb200m: "22.45s", reactionTime: "0.12s" },
-    mediaUrl: "/images/nigerian_athlete_1.png"
-  }
+    mediaUrl: "/images/nigerian_athlete_2.png",
+  },
 ];
 
 export default function TalentDashboard() {

@@ -15,7 +15,7 @@ const mockFacilities = [
     amenities: ["Floodlights", "VIP Suites", "Athletics Track", "VAR Ready", "Press Center"],
     imageUrl: "/images/nigerian_stadium.png",
     bookingAvailable: true,
-    pricePerDay: "₦2,500,000"
+    pricePerDay: "₦2,500,000",
   },
   {
     id: "2",
@@ -25,9 +25,9 @@ const mockFacilities = [
     capacity: 60491,
     condition: "Excellent",
     amenities: ["Natural Grass", "Velodrome", "Indoor Sports Hall", "VIP Lounge"],
-    imageUrl: "/images/nigerian_stadium.png",
+    imageUrl: "/images/demo/pitch-wide.jpg",
     bookingAvailable: true,
-    pricePerDay: "₦4,000,000"
+    pricePerDay: "₦4,000,000",
   },
   {
     id: "3",
@@ -37,9 +37,9 @@ const mockFacilities = [
     capacity: 24325,
     condition: "Good",
     amenities: ["Artificial Turf", "Locker Rooms", "Olympic Pool", "Media Hub"],
-    imageUrl: "/images/nigerian_stadium.png",
+    imageUrl: "/images/demo/basketball-court.jpg",
     bookingAvailable: true,
-    pricePerDay: "₦1,800,000"
+    pricePerDay: "₦1,800,000",
   },
   {
     id: "4",
@@ -49,10 +49,10 @@ const mockFacilities = [
     capacity: 5000,
     condition: "World Class",
     amenities: ["Natural Hybrid Turf", "Cryotherapy Lab", "Gymnasium", "Hotel Lodge"],
-    imageUrl: "/images/nigerian_stadium.png",
+    imageUrl: "/images/demo/athletics-sprint.jpg",
     bookingAvailable: true,
-    pricePerDay: "₦1,200,000"
-  }
+    pricePerDay: "₦1,200,000",
+  },
 ];
 
 export default function InfrastructureDashboard() {

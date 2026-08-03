@@ -13,7 +13,7 @@ const mockEvents = [
     date: "2026-08-15",
     status: "Upcoming",
     ticketsAvailable: 1500,
-    bannerUrl: "/images/nigerian_sports_event.png"
+    bannerUrl: "/images/nigerian_sports_event.png",
   },
   {
     id: "2",
@@ -23,7 +23,7 @@ const mockEvents = [
     date: "2026-09-02",
     status: "Upcoming",
     ticketsAvailable: 5000,
-    bannerUrl: "/images/nigerian_sports_event.png"
+    bannerUrl: "/images/nigerian_stadium.png",
   },
   {
     id: "3",
@@ -33,8 +33,8 @@ const mockEvents = [
     date: "2026-07-28",
     status: "Ongoing",
     ticketsAvailable: 420,
-    bannerUrl: "/images/nigerian_sports_event.png"
-  }
+    bannerUrl: "/images/demo/basketball-court.jpg",
+  },
 ];
 
 const liveScores = [
