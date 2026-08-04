@@ -71,7 +71,7 @@ export default function Home() {
   const stakeholders = [
     {
       icon: "🏛️",
-      title: "Government & NSC",
+      title: "Government & National Sports Commission",
       desc: "National Sports Commission and 36 state ministries get a single source of truth for policy, funding, and performance oversight.",
     },
     {
@@ -103,7 +103,7 @@ export default function Home() {
             <div className={styles.navLinks}>
               <a href="#modules" className={styles.navLink}>Modules</a>
               <a href="#stakeholders" className={styles.navLink}>Stakeholders</a>
-              <a href="#about" className={styles.navLink}>NSC & States</a>
+              <a href="#about" className={styles.navLink}>National Sports Commission & States</a>
               <a href="#impact" className={styles.navLink}>Impact</a>
             </div>
 
@@ -127,7 +127,7 @@ export default function Home() {
           <div className={styles.mobileMenu}>
             <a href="#modules" onClick={() => setMenuOpen(false)}>Modules</a>
             <a href="#stakeholders" onClick={() => setMenuOpen(false)}>Stakeholders</a>
-            <a href="#about" onClick={() => setMenuOpen(false)}>NSC & States</a>
+            <a href="#about" onClick={() => setMenuOpen(false)}>National Sports Commission & States</a>
             <a href="#impact" onClick={() => setMenuOpen(false)}>Impact</a>
             <Link href="/login" onClick={() => setMenuOpen(false)}>Sign in</Link>
             <Link href="/dashboard" className="button-primary" onClick={() => setMenuOpen(false)}>
@@ -235,7 +235,7 @@ export default function Home() {
               Eight modules. <span className="gradient-text">One national system.</span>
             </h2>
             <p className={styles.sectionDescription}>
-              Built to serve the Federal Ministry of Youth Development, NSC, state councils, federations, athletes, and partners — from discovery to podium.
+              Built to serve the National Sports Commission, state councils, federations, athletes, and partners — from discovery to podium.
             </p>
           </div>
 
@@ -262,7 +262,7 @@ export default function Home() {
               Built for every stakeholder in the <span className="gradient-text">Nigerian sports ecosystem</span>
             </h2>
             <p className={styles.sectionDescription}>
-              One platform, many perspectives — switch roles in the demo to see how NSC admins, state ministers, scouts, athletes, and fans experience the system.
+              One platform, many perspectives — switch roles in the demo to see how National Sports Commission admins, state ministers, scouts, athletes, and fans experience the system.
             </p>
           </div>
           <div className={styles.stakeholderGrid}>
@@ -277,7 +277,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* About / NSC */}
+      {/* About / National Sports Commission */}
       <section id="about" className={styles.section}>
         <div className="container">
           <div className={styles.aboutBand}>
@@ -291,7 +291,7 @@ export default function Home() {
               <div className={styles.aboutBadge}>
                 <div className={styles.aboutBadgeIcon}>🇳🇬</div>
                 <div>
-                  <strong>NSC × 36 States</strong>
+                  <strong>National Sports Commission × 36 States</strong>
                   <span>National governance matrix ready for demo</span>
                 </div>
               </div>
@@ -323,7 +323,7 @@ export default function Home() {
                 </li>
               </ul>
               <Link href="/dashboard/governance" className="button-primary">
-                🏛️ View NSC & States Matrix
+                🏛️ View National Sports Commission & States Matrix
               </Link>
             </div>
           </div>
@@ -336,7 +336,7 @@ export default function Home() {
           <div className={styles.ctaBox}>
             <h2>Ready to tour the live MVP?</h2>
             <p>
-              Walk through every core module as an NSC administrator, state minister, scout, athlete, or fan — no backend required for this ministry presentation.
+              Walk through every core module as a National Sports Commission administrator, state minister, scout, athlete, or fan — no backend required for this ministry presentation.
             </p>
             <div className={styles.ctaButtons}>
               <Link href="/dashboard" className={styles.ctaPrimary}>
@@ -370,7 +370,7 @@ export default function Home() {
               <a href="#modules" className={styles.footerLink}>Core Modules</a>
               <Link href="/dashboard" className={styles.footerLink}>Dashboard</Link>
               <a href="#stakeholders" className={styles.footerLink}>Stakeholders</a>
-              <Link href="/dashboard/governance" className={styles.footerLink}>NSC Matrix</Link>
+              <Link href="/dashboard/governance" className={styles.footerLink}>National Sports Commission Matrix</Link>
             </div>
 
             <div className={styles.footerColumn}>
@@ -392,7 +392,7 @@ export default function Home() {
           <div className={styles.footerBottom}>
             <span>© {new Date().getFullYear()} Nigeria Sports Aggregation Platform</span>
             <span>·</span>
-            <span>MVP for Federal Ministry of Youth Development presentation</span>
+            <span>MVP for National Sports Commission presentation</span>
           </div>
         </div>
       </footer>

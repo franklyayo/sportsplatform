@@ -10,12 +10,12 @@ import styles from "./dashboard.module.css";
 export default function DashboardLayout({ children }) {
   const pathname = usePathname();
   const [isSpecTourOpen, setIsSpecTourOpen] = useState(false);
-  const [currentRole, setCurrentRole] = useState("NSC Administrator");
+  const [currentRole, setCurrentRole] = useState("National Sports Commission Administrator");
   const [currentLang, setCurrentLang] = useState("EN");
 
   const navItems = [
     { name: "Overview", path: "/dashboard", icon: "📊" },
-    { name: "NSC & States Matrix", path: "/dashboard/governance", icon: "🏛️" },
+    { name: "National Sports Commission & States Matrix", path: "/dashboard/governance", icon: "🏛️" },
     { name: "Talent Discovery", path: "/dashboard/talent", icon: "🔍" },
     { name: "Organizations Hub", path: "/dashboard/organizations", icon: "🏢" },
     { name: "Infrastructure Hub", path: "/dashboard/infrastructure", icon: "🏟️" },
@@ -114,7 +114,7 @@ export default function DashboardLayout({ children }) {
                 onChange={(e) => setCurrentRole(e.target.value)}
                 className={styles.roleSelect}
               >
-                <option value="NSC Administrator">NSC Admin</option>
+                <option value="National Sports Commission Administrator">National Sports Commission Admin</option>
                 <option value="State Sports Minister">State Minister</option>
                 <option value="Certified Scout">Scout / Recruiter</option>
                 <option value="Elite Athlete">Athlete</option>
