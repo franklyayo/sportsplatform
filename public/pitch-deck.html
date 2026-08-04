@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NaijaSports – Executive Buy-in Deck</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── RESET & BASE ─── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ng-green:      #048b4e;
+      --ng-green-l:    #1abc9c;
+      --ng-green-d:    #025932;
+      --ng-green-deep: #013d22;
+      --ng-gold:       #f59e0b;
+      --ng-gold-l:     #fbbf24;
+      --white:         #ffffff;
+      --dark:          #050d08;
+      --dark-2:        #0a1810;
+      --dark-3:        #0e2018;
+      --dark-card:     rgba(14,32,24,0.7);
+      --border:        rgba(4,139,78,0.22);
+      --text:          #e8f5ee;
+      --text-muted:    #8fb3a0;
+      --radius:        1rem;
+      --radius-sm:     0.5rem;
+    }
+
+    html, body {
+      width: 100%; height: 100%;
+      overflow: hidden;
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--dark);
+      color: var(--text);
+    }
+
+    /* ─── SLIDE ENGINE ─── */
+    #deck {
+      position: relative;
+      width: 100vw; height: 100vh;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 3rem clamp(1.5rem, 6vw, 5rem);
+      opacity: 0;
+      transform: translateX(60px);
+      transition: opacity 0.55s cubic-bezier(0.4,0,0.2,1),
+                  transform 0.55s cubic-bezier(0.4,0,0.2,1);
+      pointer-events: none;
+      will-change: opacity, transform;
+      overflow-y: auto;
+    }
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+    }
+    .slide.exit {
+      opacity: 0;
+      transform: translateX(-60px);
+    }
+
+    /* Scrollbar inside slides */
+    .slide::-webkit-scrollbar { width: 4px; }
+    .slide::-webkit-scrollbar-thumb { background: rgba(4,139,78,0.3); border-radius: 2px; }
+
+    /* ─── BG LAYERS ─── */
+    .bg-glow {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .bg-glow::before {
+      content: '';
+      position: absolute;
+      width: 800px; height: 800px;
+      background: radial-gradient(ellipse, rgba(4,139,78,0.18) 0%, transparent 70%);
+      top: -200px; right: -200px;
+      border-radius: 50%;
+      animation: driftA 12s ease-in-out infinite alternate;
+    }
+    .bg-glow::after {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(ellipse, rgba(245,158,11,0.1) 0%, transparent 70%);
+      bottom: -150px; left: -100px;
+      border-radius: 50%;
+      animation: driftB 15s ease-in-out infinite alternate;
+    }
+    @keyframes driftA { from { transform: translate(0,0) scale(1); } to { transform: translate(-60px,60px) scale(1.15); } }
+    @keyframes driftB { from { transform: translate(0,0) scale(1); } to { transform: translate(60px,-40px) scale(1.2); } }
+
+    /* Grid pattern overlay */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(4,139,78,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(4,139,78,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    /* ─── PROGRESS BAR ─── */
+    #progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--ng-green-l), var(--ng-gold));
+      z-index: 100;
+      transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
+      box-shadow: 0 0 12px rgba(4,139,78,0.6);
+    }
+
+    /* ─── NAV CONTROLS ─── */
+    #controls {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      background: rgba(14,32,24,0.85);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 9999px;
+      padding: 0.6rem 1.2rem;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    #controls button {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: rgba(4,139,78,0.15);
+      color: var(--text);
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all 0.2s;
+    }
+    #controls button:hover { background: rgba(4,139,78,0.4); transform: scale(1.08); }
+    #controls button:disabled { opacity: 0.3; cursor: default; transform: none; }
+    #slide-counter {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      min-width: 50px;
+      text-align: center;
+      letter-spacing: 0.05em;
+    }
+
+    /* Slide dots */
+    #dots {
+      position: fixed;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: rgba(4,139,78,0.3);
+      border: 1px solid rgba(4,139,78,0.4);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .dot.active {
+      background: var(--ng-green-l);
+      box-shadow: 0 0 8px rgba(26,188,156,0.8);
+      height: 20px;
+      border-radius: 3px;
+    }
+    .dot:hover { background: rgba(4,139,78,0.7); }
+
+    /* ─── LOGO BADGE ─── */
+    #logo-badge {
+      position: fixed;
+      top: 1.5rem;
+      left: 2rem;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .logo-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--ng-green), var(--ng-green-d));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 1rem;
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(4,139,78,0.4);
+    }
+    .logo-text { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.04em; }
+
+    /* ─── CONFIDENTIAL TAG ─── */
+    #conf-tag {
+      position: fixed;
+      top: 1.5rem;
+      right: 2rem;
+      z-index: 100;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: rgba(14,32,24,0.6);
+      border: 1px solid var(--border);
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      backdrop-filter: blur(10px);
+    }
+
+    /* ─── SHARED COMPONENTS ─── */
+    .slide-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ng-green-l);
+      background: rgba(4,139,78,0.12);
+      border: 1px solid rgba(4,139,78,0.25);
+      padding: 0.3rem 0.85rem;
+      border-radius: 9999px;
+      margin-bottom: 1.2rem;
+    }
+    .eyebrow .dot-pulse {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--ng-green-l);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; box-shadow: 0 0 0 0 rgba(26,188,156,0.5); }
+      50% { opacity: 0.7; box-shadow: 0 0 0 6px rgba(26,188,156,0); }
+    }
+
+    .headline {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(2rem, 5vw, 3.8rem);
+      font-weight: 900;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      margin-bottom: 1.2rem;
+    }
+    .headline .grad {
+      background: linear-gradient(120deg, var(--ng-green-l) 0%, var(--ng-gold-l) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .body-text {
+      font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+      line-height: 1.75;
+      color: var(--text-muted);
+      max-width: 640px;
+    }
+
+    /* ─── CARD STYLES ─── */
+    .glass-card {
+      background: var(--dark-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .glass-card:hover {
+      border-color: rgba(4,139,78,0.4);
+      box-shadow: 0 8px 32px rgba(4,139,78,0.15);
+    }
+
+    /* ─── STAT CARDS ─── */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .stat-card {
+      background: rgba(4,139,78,0.08);
+      border: 1px solid rgba(4,139,78,0.2);
+      border-radius: var(--radius);
+      padding: 1.5rem 1rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    .stat-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(4,139,78,0.08), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .stat-card:hover::before { opacity: 1; }
+    .stat-card:hover { transform: translateY(-4px); border-color: rgba(4,139,78,0.4); box-shadow: 0 12px 32px rgba(4,139,78,0.2); }
+    .stat-value {
+      font-family: 'Outfit', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 900;
+      color: var(--ng-green-l);
+      line-height: 1;
+      margin-bottom: 0.35rem;
+    }
+    .stat-value.gold { color: var(--ng-gold-l); }
+    .stat-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    /* ─── PROBLEM CARDS ─── */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    @media (max-width: 700px) { .problem-grid { grid-template-columns: 1fr; } }
+    .problem-card {
+      background: rgba(220,38,38,0.06);
+      border: 1px solid rgba(220,38,38,0.2);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.4rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    .problem-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .problem-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.3rem; color: var(--white); }
+    .problem-card p { font-size: 0.82rem; line-height: 1.6; color: var(--text-muted); }
+
+    /* ─── MODULE GRID ─── */
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.8rem;
+      margin-top: 2rem;
+    }
+    @media (max-width: 900px) { .module-grid { grid-template-columns: repeat(2, 1fr); } }
+    .module-card {
+      background: rgba(14,32,24,0.6);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+    .module-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--ng-green), var(--ng-gold));
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .module-card:hover::after { transform: scaleX(1); }
+    .module-card:hover { border-color: rgba(4,139,78,0.4); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(4,139,78,0.15); }
+    .module-num { font-size: 0.65rem; font-weight: 800; color: var(--ng-green-l); letter-spacing: 0.1em; margin-bottom: 0.5rem; }
+    .module-emoji { font-size: 1.5rem; margin-bottom: 0.5rem; display: block; }
+    .module-name { font-size: 0.85rem; font-weight: 700; color: var(--white); margin-bottom: 0.25rem; }
+    .module-desc { font-size: 0.73rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* ─── STAKEHOLDER CARDS ─── */
+    .stakeholder-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    @media (max-width: 800px) { .stakeholder-grid { grid-template-columns: 1fr; } }
+    .stakeholder-card {
+      background: rgba(14,32,24,0.6);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: all 0.3s;
+    }
+    .stakeholder-card:hover { border-color: rgba(245,158,11,0.35); box-shadow: 0 8px 24px rgba(245,158,11,0.08); }
+    .stakeholder-icon { font-size: 2rem; margin-bottom: 0.8rem; display: block; }
+    .stakeholder-card h4 { font-size: 0.9rem; font-weight: 700; color: var(--white); margin-bottom: 0.4rem; }
+    .stakeholder-card p { font-size: 0.8rem; line-height: 1.65; color: var(--text-muted); }
+
+    /* ─── TECH STACK ─── */
+    .tech-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+    .tech-chip {
+      background: rgba(4,139,78,0.1);
+      border: 1px solid rgba(4,139,78,0.25);
+      border-radius: var(--radius-sm);
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: all 0.2s;
+    }
+    .tech-chip:hover { background: rgba(4,139,78,0.2); border-color: rgba(4,139,78,0.4); }
+    .tech-chip .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--ng-green-l); flex-shrink: 0; }
+
+    /* ─── TIMELINE ─── */
+    .timeline {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      position: relative;
+    }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 1.5rem;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--ng-green), var(--ng-gold), transparent);
+    }
+    .timeline-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      padding: 1.2rem 1.2rem 1.2rem 4rem;
+      position: relative;
+      background: rgba(14,32,24,0.4);
+      border-radius: var(--radius);
+      margin-bottom: 0.5rem;
+      border: 1px solid var(--border);
+      transition: border-color 0.3s;
+    }
+    .timeline-item:hover { border-color: rgba(4,139,78,0.4); }
+    .timeline-dot {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      border: 2px solid var(--ng-green);
+      background: var(--dark);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .timeline-dot.done { background: var(--ng-green); }
+    .timeline-dot.done::after { content: '✓'; font-size: 0.55rem; color: white; font-weight: 900; }
+    .timeline-dot.active-phase { border-color: var(--ng-gold); }
+    .timeline-dot.active-phase::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--ng-gold); animation: pulse 1.5s infinite; }
+    .timeline-phase { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.25rem; color: var(--ng-green-l); }
+    .timeline-phase.current { color: var(--ng-gold-l); }
+    .timeline-item h4 { font-size: 0.92rem; font-weight: 700; color: var(--white); margin-bottom: 0.3rem; }
+    .timeline-item p { font-size: 0.78rem; line-height: 1.5; color: var(--text-muted); }
+
+    /* ─── THE ASK ─── */
+    .ask-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    @media (max-width: 800px) { .ask-grid { grid-template-columns: 1fr; } }
+    .ask-card {
+      border-radius: var(--radius);
+      padding: 1.8rem 1.4rem;
+      position: relative;
+      overflow: hidden;
+      text-align: center;
+    }
+    .ask-card.primary {
+      background: linear-gradient(135deg, rgba(4,139,78,0.25) 0%, rgba(2,89,50,0.15) 100%);
+      border: 1px solid rgba(4,139,78,0.4);
+    }
+    .ask-card.secondary {
+      background: rgba(14,32,24,0.6);
+      border: 1px solid var(--border);
+    }
+    .ask-number {
+      font-family: 'Outfit', sans-serif;
+      font-size: 3rem;
+      font-weight: 900;
+      color: rgba(4,139,78,0.3);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .ask-card h4 { font-size: 1rem; font-weight: 700; color: var(--white); margin-bottom: 0.6rem; }
+    .ask-card p { font-size: 0.82rem; line-height: 1.65; color: var(--text-muted); }
+
+    /* ─── DIVIDER ─── */
+    .ng-divider {
+      height: 2px;
+      background: linear-gradient(90deg, var(--ng-green), rgba(255,255,255,0.3), var(--ng-green));
+      margin: 1.5rem 0;
+      border-radius: 1px;
+    }
+
+    /* ─── TWO-COL LAYOUT ─── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    @media (max-width: 700px) { .two-col { grid-template-columns: 1fr; gap: 2rem; } }
+
+    /* ─── IMPACT NUMBERS ─── */
+    .impact-list { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.8rem; }
+    .impact-item { display: flex; align-items: center; gap: 1rem; }
+    .impact-bar-wrap { flex: 1; height: 6px; background: rgba(255,255,255,0.06); border-radius: 3px; overflow: hidden; }
+    .impact-bar { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--ng-green-l), var(--ng-gold)); animation: grow-bar 1.2s cubic-bezier(0.4,0,0.2,1) both; }
+    @keyframes grow-bar { from { width: 0; } }
+    .impact-label { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); min-width: 130px; }
+    .impact-pct { font-size: 0.78rem; font-weight: 700; color: var(--ng-green-l); min-width: 38px; text-align: right; }
+
+    /* ─── CLOSING SLIDE ─── */
+    .closing-glow {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 70% at 50% 60%, rgba(4,139,78,0.18) 0%, transparent 70%);
+      z-index: 1;
+    }
+    .flag-stripe {
+      width: 80px; height: 5px;
+      background: linear-gradient(90deg, var(--ng-green) 33%, white 33% 66%, var(--ng-green) 66%);
+      border-radius: 2px;
+      margin: 1.5rem auto;
+    }
+    .cta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 2rem;
+      background: linear-gradient(135deg, var(--ng-green), var(--ng-green-d));
+      border: none;
+      border-radius: 9999px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: white;
+      cursor: pointer;
+      box-shadow: 0 8px 28px rgba(4,139,78,0.4);
+      transition: all 0.3s;
+      margin-top: 2rem;
+    }
+    .cta-pill:hover { transform: translateY(-3px); box-shadow: 0 14px 40px rgba(4,139,78,0.5); }
+
+    /* ─── QUOTE PULL ─── */
+    .pull-quote {
+      border-left: 3px solid var(--ng-gold);
+      padding: 1rem 1.5rem;
+      background: rgba(245,158,11,0.06);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin: 1.5rem 0;
+    }
+    .pull-quote p { font-size: 1rem; line-height: 1.7; font-style: italic; color: var(--text); }
+    .pull-quote cite { font-size: 0.78rem; color: var(--ng-gold-l); font-weight: 600; display: block; margin-top: 0.5rem; }
+
+    /* ─── ANIMATIONS ─── */
+    .slide.active .animate-in { animation: fadeUp 0.6s cubic-bezier(0.4,0,0.2,1) both; }
+    .slide.active .animate-in:nth-child(2) { animation-delay: 0.1s; }
+    .slide.active .animate-in:nth-child(3) { animation-delay: 0.2s; }
+    .slide.active .animate-in:nth-child(4) { animation-delay: 0.3s; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* ─── KEYBOARD HINT ─── */
+    #key-hint {
+      position: fixed;
+      bottom: 5.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 99;
+      font-size: 0.7rem;
+      color: rgba(143,179,160,0.5);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    kbd {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 4px;
+      padding: 0.1rem 0.4rem;
+      font-family: inherit;
+      font-size: 0.68rem;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- BACKGROUND LAYERS -->
+  <div class="bg-glow" aria-hidden="true"></div>
+  <div class="bg-grid"  aria-hidden="true"></div>
+
+  <!-- CHROME -->
+  <div id="progress-bar" role="progressbar" aria-label="Slide progress"></div>
+
+  <div id="logo-badge" aria-label="NaijaSports">
+    <div class="logo-icon">N</div>
+    <div class="logo-text">NaijaSports Platform</div>
+  </div>
+
+  <div id="conf-tag">Executive Deck · Confidential</div>
+
+  <div id="dots" role="navigation" aria-label="Slide navigation dots"></div>
+
+  <div id="key-hint"><kbd>←</kbd> <kbd>→</kbd> to navigate &nbsp;·&nbsp; <kbd>Space</kbd> to advance</div>
+
+  <div id="controls" role="navigation" aria-label="Slide controls">
+    <button id="btn-prev" aria-label="Previous slide">&#8592;</button>
+    <div id="slide-counter">1 / 10</div>
+    <button id="btn-next" aria-label="Next slide">&#8594;</button>
+  </div>
+
+
+  <!-- ════════════════════════════════════════════
+       SLIDES
+  ════════════════════════════════════════════ -->
+  <div id="deck" role="main">
+
+    <!-- ── SLIDE 1: TITLE ── -->
+    <section class="slide active" id="slide-1" aria-label="Title slide">
+      <div class="closing-glow"></div>
+      <div class="slide-content" style="text-align:center; position:relative; z-index:2;">
+        <div class="animate-in" style="margin-bottom:1rem;">
+          <div style="width:72px;height:72px;border-radius:20px;background:linear-gradient(135deg,var(--ng-green),var(--ng-green-d));display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-weight:900;font-size:2.2rem;color:#fff;margin:0 auto 1.5rem;box-shadow:0 12px 40px rgba(4,139,78,0.45);">N</div>
+          <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.15em;color:var(--ng-green-l);text-transform:uppercase;margin-bottom:1rem;">Executive Presentation</div>
+        </div>
+        <h1 class="headline animate-in" style="font-size:clamp(2.4rem,6vw,4.8rem);margin-bottom:1rem;">
+          <span class="grad">NaijaSports</span><br/>National Sports Platform
+        </h1>
+        <p class="body-text animate-in" style="margin:0 auto 2rem;max-width:580px;text-align:center;">
+          A once-in-a-generation opportunity to build the <strong style="color:var(--white);">definitive digital backbone</strong> of Nigerian sports — connecting every athlete, federation, facility, and naira of funding in one unified ecosystem.
+        </p>
+        <div class="flag-stripe animate-in"></div>
+        <div class="animate-in" style="display:flex;gap:2rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap;">
+          <div style="text-align:center;">
+            <div style="font-family:'Outfit',sans-serif;font-size:1.8rem;font-weight:900;color:var(--ng-green-l);">1.4M+</div>
+            <div style="font-size:0.72rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Athlete Records</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:'Outfit',sans-serif;font-size:1.8rem;font-weight:900;color:var(--ng-gold-l);">₦14.2B</div>
+            <div style="font-size:0.72rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Active Funding</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:'Outfit',sans-serif;font-size:1.8rem;font-weight:900;color:var(--ng-green-l);">8,940</div>
+            <div style="font-size:0.72rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">Facilities Mapped</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-family:'Outfit',sans-serif;font-size:1.8rem;font-weight:900;color:var(--ng-gold-l);">37</div>
+            <div style="font-size:0.72rem;color:var(--text-muted);font-weight:600;text-transform:uppercase;letter-spacing:0.05em;">States + FCT</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SLIDE 2: THE OPPORTUNITY ── -->
+    <section class="slide" id="slide-2" aria-label="The opportunity">
+      <div class="slide-content">
+        <div class="eyebrow animate-in"><span class="dot-pulse"></span> The Opportunity</div>
+        <h2 class="headline animate-in">Nigeria is a <span class="grad">sports superpower</span><br/>without a digital spine.</h2>
+        <div class="two-col animate-in">
+          <div>
+            <p class="body-text" style="margin-bottom:1.5rem;">
+              Nigeria has produced Olympic champions, World Cup participants, and grassroots talent across 200 million people — yet the infrastructure to <strong style="color:var(--white);">identify, develop, track, and fund</strong> that talent is entirely fragmented.
+            </p>
+            <div class="pull-quote">
+              <p>"A country of 210 million with 1.4 million registered athletes and no single place to find, fund, or manage any of them."</p>
+              <cite>— Platform Assessment, NSC</cite>
+            </div>
+            <p class="body-text">
+              This gap costs the nation in missed Olympic medals, under-funded academies, idle stadiums, and billions in wasted sports grants that can't be tracked.
+            </p>
+          </div>
+          <div class="stat-grid" style="grid-template-columns:1fr 1fr;">
+            <div class="stat-card">
+              <div class="stat-value">200M</div>
+              <div class="stat-label">Population</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">1.4M</div>
+              <div class="stat-label">Tracked Athletes</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value gold">0</div>
+              <div class="stat-label">Unified Data Systems</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">50+</div>
+              <div class="stat-label">Siloed Federations</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SLIDE 3: THE PROBLEM ── -->
+    <section class="slide" id="slide-3" aria-label="The problem">
+      <div class="slide-content">
+        <div class="eyebrow animate-in"><span class="dot-pulse"></span> Problem Statement</div>
+        <h2 class="headline animate-in">Four systemic failures<br/><span class="grad">holding us back.</span></h2>
+        <div class="problem-grid animate-in">
+          <div class="problem-card">
+            <span class="problem-icon">🕵️</span>
+            <div>
+              <h4>Invisible Talent</h4>
+              <p>Thousands of elite-potential athletes in Kano, Aba, and Calabar go undiscovered each year because there is no searchable, verified national talent registry accessible to scouts and federations.</p>
+            </div>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">💸</span>
+            <div>
+              <h4>Untracked Funding</h4>
+              <p>₦14.2 billion in sports grants and sponsorships flow without a transparent digital ledger, causing misallocation, duplication, and eroded stakeholder trust.</p>
+            </div>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">🏟️</span>
+            <div>
+              <h4>Idle Infrastructure</h4>
+              <p>8,940 facilities across 36 states have no real-time availability, booking, or condition-tracking system — assets worth billions sit underutilised and unmaintained.</p>
+            </div>
+          </div>
+          <div class="problem-card">
+            <span class="problem-icon">📋</span>
+            <div>
+              <h4>Manual Governance</h4>
+              <p>NSC compliance, federation reporting, anti-doping audits, and policy dissemination run on spreadsheets, email, and phone calls — adding months of latency to decisions.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SLIDE 4: THE SOLUTION ── -->
+    <section class="slide" id="slide-4" aria-label="The solution">
+      <div class="slide-content">
+        <div class="eyebrow animate-in"><span class="dot-pulse"></span> Our Solution</div>
+        <h2 class="headline animate-in">One platform.<br/><span class="grad">Eight interconnected modules.</span></h2>
+        <p class="body-text animate-in" style="margin-bottom:0;">NaijaSports is a unified national sports operating system — built for the Nigeria Sports Commission, state ministries, federations, athletes, coaches, and fans.</p>
+        <div class="module-grid animate-in">
+          <div class="module-card">
+            <div class="module-num">Module 01</div>
+            <span class="module-emoji">🔍</span>
+            <div class="module-name">Talent Discovery</div>
+            <div class="module-desc">NIN-linked athlete database, scouting tools & performance tracking across all 36 states.</div>
+          </div>
+          <div class="module-card">
+            <div class="module-num">Module 02</div>
+            <span class="module-emoji">🏢</span>
+            <div class="module-name">Organizations Hub</div>
+            <div class="module-desc">Compliance centre for 50+ federations, clubs & state sports councils.</div>
+          </div>
+          <div class="module-card">
+            <div class="module-num">Module 03</div>
+            <span class="module-emoji">🏟️</span>
+            <div class="module-name">Infrastructure Hub</div>
+            <div class="module-desc">Virtual tours, live availability & booking for stadiums & facilities nationwide.</div>
+          </div>
+          <div class="module-card">
+            <div class="module-num">Module 04</div>
+            <span class="module-emoji">👥</span>
+            <div class="module-name">Sports Network</div>
+            <div class="module-desc">Nigeria's professional sports networking layer — the LinkedIn for sports people.</div>
+          </div>
+          <div class="module-card">
+            <div class="module-num">Module 05</div>
+            <span class="module-emoji">🎓</span>
+            <div class="module-name">Training & Certification</div>
+            <div class="module-desc">E-learning, accredited licensing & capacity building for coaches & referees.</div>
+          </div>
+          <div class="module-card">
+            <div class="module-num">Module 06</div>
+            <span class="module-emoji">🏆</span>
+            <div class="module-name">Events & Competitions</div>
+            <div class="module-desc">Live scores, national calendar & ticketing from grassroots to Super Eagles.</div>
+          </div>
+          <div class="module-card">
+            <div class="module-num">Module 07</div>
+            <span class="module-emoji">💰</span>
+            <div class="module-name">Financing & Grants</div>
+            <div class="module-desc">Transparent ledger for ₦14.2B+ in grants, scholarships & sponsorships.</div>
+          </div>
+          <div class="module-card">
+            <div class="module-num">Module 08</div>
+            <span class="module-emoji">📚</span>
+            <div class="module-name">Policies & Knowledge</div>
+            <div class="module-desc">Sports laws, analytics & the national research library.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SLIDE 5: WHO IT SERVES ── -->
+    <section class="slide" id="slide-5" aria-label="Who it serves">
+      <div class="slide-content">
+        <div class="eyebrow animate-in"><span class="dot-pulse"></span> Stakeholder Ecosystem</div>
+        <h2 class="headline animate-in">Designed for <span class="grad">every stakeholder</span><br/>in Nigerian sports.</h2>
+        <div class="stakeholder-grid animate-in">
+          <div class="stakeholder-card">
+            <span class="stakeholder-icon">🏛️</span>
+            <h4>Government & NSC</h4>
+            <p>Nigeria Sports Commission and 36 state ministries get a real-time single source of truth for policy, funding oversight, compliance, and national KPIs.</p>
+          </div>
+          <div class="stakeholder-card">
+            <span class="stakeholder-icon">🏃</span>
+            <h4>Athletes & Coaches</h4>
+            <p>From grassroots pitches to elite camps — athletes get discovered, coaches get certified, and performance data follows them through their entire career.</p>
+          </div>
+          <div class="stakeholder-card">
+            <span class="stakeholder-icon">🤝</span>
+            <h4>Federations & Sponsors</h4>
+            <p>50+ national federations manage compliance, events, and talent pipelines. Sponsors gain verified, data-backed athletes and institutions to fund with confidence.</p>
+          </div>
+          <div class="stakeholder-card">
+            <span class="stakeholder-icon">🏗️</span>
+            <h4>Facility Managers</h4>
+            <p>Stadium operators and arena managers publish availability, manage bookings, log maintenance, and prove asset ROI to government funders in one place.</p>
+          </div>
+          <div class="stakeholder-card">
+            <span class="stakeholder-icon">📰</span>
+            <h4>Media & Publishers</h4>
+            <p>Journalists, podcasters, and documentarians access verified sports data, live scores, and athlete profiles to power next-generation sports content.</p>
+          </div>
+          <div class="stakeholder-card">
+            <span class="stakeholder-icon">👨‍👩‍👧</span>
+            <h4>Citizens & Fans</h4>
+            <p>Every Nigerian can track events, buy tickets, support local talent, and access the Marketplace for sports equipment and merchandise across all 36 states.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SLIDE 6: STRATEGIC ALIGNMENT ── -->
+    <section class="slide" id="slide-6" aria-label="Strategic alignment">
+      <div class="slide-content">
+        <div class="eyebrow animate-in"><span class="dot-pulse"></span> Strategic Alignment</div>
+        <h2 class="headline animate-in">Why <span class="grad">your organisation</span><br/>should back this now.</h2>
+        <div class="two-col animate-in" style="gap:2rem;align-items:start;">
+          <div>
+            <div class="glass-card" style="margin-bottom:0.8rem;">
+              <div style="font-size:1.4rem;margin-bottom:0.5rem;">📊</div>
+              <h4 style="font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:0.4rem;">Data-Driven Decision Making</h4>
+              <p style="font-size:0.82rem;line-height:1.65;color:var(--text-muted);">Executives gain live analytics dashboards — state-level KPI maps, funding utilisation, athlete progression trends — replacing months-old PDF reports.</p>
+            </div>
+            <div class="glass-card" style="margin-bottom:0.8rem;">
+              <div style="font-size:1.4rem;margin-bottom:0.5rem;">🚀</div>
+              <h4 style="font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:0.4rem;">Brand Leadership</h4>
+              <p style="font-size:0.82rem;line-height:1.65;color:var(--text-muted);">Spearheading digital transformation in Nigerian sports positions your organisation as a pioneer in national development and e-governance before any competitor does.</p>
+            </div>
+            <div class="glass-card">
+              <div style="font-size:1.4rem;margin-bottom:0.5rem;">⚙️</div>
+              <h4 style="font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:0.4rem;">Operational Efficiency</h4>
+              <p style="font-size:0.82rem;line-height:1.65;color:var(--text-muted);">Automating compliance checks, event registration, grant applications, and governance workflows cuts administrative overhead by an estimated 60–70%.</p>
+            </div>
+          </div>
+          <div>
+            <div class="glass-card" style="margin-bottom:0.8rem;">
+              <div style="font-size:1.4rem;margin-bottom:0.5rem;">💼</div>
+              <h4 style="font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:0.4rem;">Economic Impact</h4>
+              <p style="font-size:0.82rem;line-height:1.65;color:var(--text-muted);">A formalised sports marketplace — jobs, media, equipment, networking — directly targets youth unemployment and grows the sports economy as a measurable GDP contributor.</p>
+            </div>
+            <div class="glass-card" style="margin-bottom:0.8rem;">
+              <div style="font-size:1.4rem;margin-bottom:0.5rem;">🛡️</div>
+              <h4 style="font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:0.4rem;">Accountability & Transparency</h4>
+              <p style="font-size:0.82rem;line-height:1.65;color:var(--text-muted);">A real-time funding ledger ends the era of untracked grants, demonstrates fiduciary integrity to international partners, and satisfies audit requirements automatically.</p>
+            </div>
+            <div class="glass-card">
+              <div style="font-size:1.4rem;margin-bottom:0.5rem;">🌍</div>
+              <h4 style="font-size:0.95rem;font-weight:700;color:var(--white);margin-bottom:0.4rem;">Global Competitiveness</h4>
+              <p style="font-size:0.82rem;line-height:1.65;color:var(--text-muted);">Talent pipelines visible to international scouts and federations means more Nigerians competing on the global stage — raising the country's sporting reputation worldwide.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SLIDE 7: TECHNOLOGY ── -->
+    <section class="slide" id="slide-7" aria-label="Technology">
+      <div class="slide-content">
+        <div class="eyebrow animate-in"><span class="dot-pulse"></span> Technology Foundation</div>
+        <h2 class="headline animate-in">Enterprise-grade.<br/><span class="grad">Serverless. Edge-native.</span></h2>
+        <div class="two-col animate-in" style="align-items:start;gap:2.5rem;">
+          <div>
+            <p class="body-text" style="margin-bottom:1.5rem;">
+              Built on a modern, production-tested stack designed for <strong style="color:var(--white);">national-scale traffic</strong> without national-scale infrastructure costs. No legacy servers. No single point of failure.
+            </p>
+            <div class="tech-row">
+              <div class="tech-chip"><span class="dot"></span> Next.js 16 + Turbopack</div>
+              <div class="tech-chip"><span class="dot"></span> React 19</div>
+              <div class="tech-chip"><span class="dot"></span> Prisma v7 ORM</div>
+              <div class="tech-chip"><span class="dot"></span> Neon Serverless Postgres</div>
+              <div class="tech-chip"><span class="dot"></span> Vercel Edge Network</div>
+              <div class="tech-chip"><span class="dot"></span> Neon Auth (JWT)</div>
+              <div class="tech-chip"><span class="dot"></span> App Router (RSC)</div>
+              <div class="tech-chip"><span class="dot"></span> CSS Modules</div>
+            </div>
+            <div class="ng-divider" style="margin:1.5rem 0;"></div>
+            <div class="pull-quote">
+              <p>"The database scales from 0 to peak tournament traffic automatically — we pay for usage, not headroom. No DevOps team required."</p>
+              <cite>— Platform Architecture Review</cite>
+            </div>
+          </div>
+          <div>
+            <div class="glass-card" style="margin-bottom:0.8rem;">
+              <h4 style="font-size:0.85rem;font-weight:700;color:var(--ng-green-l);margin-bottom:0.5rem;">⚡ Performance</h4>
+              <p style="font-size:0.8rem;line-height:1.65;color:var(--text-muted);">Edge-deployed globally. Sub-200ms page loads for users in Abuja, Lagos, Port Harcourt, and Kano simultaneously — even during major events.</p>
+            </div>
+            <div class="glass-card" style="margin-bottom:0.8rem;">
+              <h4 style="font-size:0.85rem;font-weight:700;color:var(--ng-green-l);margin-bottom:0.5rem;">💰 Cost Efficiency</h4>
+              <p style="font-size:0.8rem;line-height:1.65;color:var(--text-muted);">Serverless Postgres + Vercel means zero idle server cost. Infrastructure scales automatically — saving an estimated 65% vs. traditional cloud hosting.</p>
+            </div>
+            <div class="glass-card" style="margin-bottom:0.8rem;">
+              <h4 style="font-size:0.85rem;font-weight:700;color:var(--ng-green-l);margin-bottom:0.5rem;">🔒 Security & Auth</h4>
+              <p style="font-size:0.8rem;line-height:1.65;color:var(--text-muted);">NIN-linked identity verification, JWT-based session management, role-based access control for NSC, state, federation, scout, and public roles.</p>
+            </div>
+            <div class="glass-card">
+              <h4 style="font-size:0.85rem;font-weight:700;color:var(--ng-green-l);margin-bottom:0.5rem;">🔮 Future-Proof</h4>
+              <p style="font-size:0.8rem;line-height:1.65;color:var(--text-muted);">Architecture is API-first, making it trivial to add mobile apps, third-party integrations, and AI-powered analytics layers as the platform matures.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SLIDE 8: ROADMAP ── -->
+    <section class="slide" id="slide-8" aria-label="Roadmap">
+      <div class="slide-content">
+        <div class="eyebrow animate-in"><span class="dot-pulse"></span> Project Roadmap</div>
+        <h2 class="headline animate-in">Where we are.<br/><span class="grad">Where we're going.</span></h2>
+        <div class="timeline animate-in">
+          <div class="timeline-item">
+            <div class="timeline-dot done"></div>
+            <div>
+              <div class="timeline-phase">Phase 1 — Completed ✅</div>
+              <h4>Foundation & Core Architecture</h4>
+              <p>Next.js 16 App Router setup, Prisma v7 + Neon integration, edge-compatible database layer, authentication proxy, and core dashboard framework. Modules: Infrastructure, Funding, Jobs — live and functional.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot active-phase"></div>
+            <div>
+              <div class="timeline-phase current">Phase 2 — In Progress 🔄</div>
+              <h4>Ecosystem Module Expansion</h4>
+              <p>Building and integrating the remaining 5 modules: Talent Discovery, Organizations Hub, Sports Network, Training & Certification, Events & Competitions. Full NSC Governance Matrix and Analytics dashboards.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div>
+              <div class="timeline-phase">Phase 3 — Future Target</div>
+              <h4>Controlled National Pilot</h4>
+              <p>Onboard 3–5 state ministries, 10+ federations, and 50+ facility managers for a 90-day structured pilot with SLA monitoring, user feedback loops, and KPI benchmarking.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div>
+              <div class="timeline-phase">Phase 4 — Long Term</div>
+              <h4>Full National Rollout & Mobile</h4>
+              <p>All 36 states + FCT onboarded. Native mobile apps for Android & iOS. AI-powered talent scouting recommendations. API marketplace for third-party sports tech providers.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SLIDE 9: IMPACT ── -->
+    <section class="slide" id="slide-9" aria-label="Expected impact">
+      <div class="slide-content">
+        <div class="eyebrow animate-in"><span class="dot-pulse"></span> Expected Impact</div>
+        <h2 class="headline animate-in">Measurable outcomes<br/>for <span class="grad">Nigeria's sports ecosystem.</span></h2>
+        <div class="two-col animate-in" style="align-items:start;gap:2.5rem;">
+          <div>
+            <p class="body-text" style="margin-bottom:1.5rem;">The platform targets quantifiable improvements across every pillar of the ecosystem within 18 months of full deployment.</p>
+            <div class="impact-list">
+              <div class="impact-item">
+                <div class="impact-label">Talent Visibility</div>
+                <div class="impact-bar-wrap"><div class="impact-bar" style="width:90%"></div></div>
+                <div class="impact-pct">90%↑</div>
+              </div>
+              <div class="impact-item">
+                <div class="impact-label">Admin Efficiency</div>
+                <div class="impact-bar-wrap"><div class="impact-bar" style="width:70%"></div></div>
+                <div class="impact-pct">70%↑</div>
+              </div>
+              <div class="impact-item">
+                <div class="impact-label">Facility Utilisation</div>
+                <div class="impact-bar-wrap"><div class="impact-bar" style="width:55%"></div></div>
+                <div class="impact-pct">55%↑</div>
+              </div>
+              <div class="impact-item">
+                <div class="impact-label">Funding Traceability</div>
+                <div class="impact-bar-wrap"><div class="impact-bar" style="width:100%"></div></div>
+                <div class="impact-pct">100%</div>
+              </div>
+              <div class="impact-item">
+                <div class="impact-label">Compliance Speed</div>
+                <div class="impact-bar-wrap"><div class="impact-bar" style="width:80%"></div></div>
+                <div class="impact-pct">80%↑</div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="stat-grid" style="grid-template-columns:1fr 1fr;gap:0.75rem;margin-top:0;">
+              <div class="stat-card">
+                <div class="stat-value">50k+</div>
+                <div class="stat-label">Youth Jobs Enabled</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value gold">3×</div>
+                <div class="stat-label">Scout Match Rate</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value">₦0</div>
+                <div class="stat-label">Untracked Grants</div>
+              </div>
+              <div class="stat-card">
+                <div class="stat-value">37</div>
+                <div class="stat-label">States Connected</div>
+              </div>
+              <div class="stat-card" style="grid-column:1/-1;background:rgba(4,139,78,0.12);border-color:rgba(4,139,78,0.3);">
+                <div class="stat-value" style="font-size:1.5rem;">Target</div>
+                <div class="stat-label">Nigeria ranked Top 10 in African Sports Digital Index</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── SLIDE 10: THE ASK ── -->
+    <section class="slide" id="slide-10" aria-label="The ask">
+      <div class="closing-glow"></div>
+      <div class="slide-content" style="position:relative;z-index:2;">
+        <div class="eyebrow animate-in" style="margin:0 auto 1.2rem;display:table;"><span class="dot-pulse"></span> The Ask</div>
+        <h2 class="headline animate-in" style="text-align:center;">We have the platform.<br/><span class="grad">We need your mandate.</span></h2>
+        <p class="body-text animate-in" style="text-align:center;margin:0 auto 0.5rem;max-width:620px;">The technical foundation is built and proven. To take this from working prototype to national standard, we need three things from the executive team:</p>
+        <div class="ask-grid animate-in">
+          <div class="ask-card primary">
+            <div class="ask-number">01</div>
+            <h4>Strategic Mandate</h4>
+            <p>Official executive endorsement to align key departments — Operations, IT, Marketing, and Legal — behind this platform as the organisational priority for sports digitalisation in Nigeria.</p>
+          </div>
+          <div class="ask-card secondary">
+            <div class="ask-number">02</div>
+            <h4>Partnership Unblocking</h4>
+            <p>Executive introductions and support to onboard early-adopter federations, state sports councils, and facility managers for the Phase 3 pilot cohort.</p>
+          </div>
+          <div class="ask-card secondary">
+            <div class="ask-number">03</div>
+            <h4>Resource Allocation</h4>
+            <p>Approval for a dedicated cross-functional team (product, partnerships, comms) and budget to execute the pilot, produce stakeholder onboarding materials, and drive adoption.</p>
+          </div>
+        </div>
+        <div class="animate-in" style="text-align:center;">
+          <div class="flag-stripe" style="margin:2rem auto 1.5rem;"></div>
+          <p style="font-size:0.85rem;color:var(--text-muted);max-width:520px;margin:0 auto;">
+            This is not a request for financial investment. It is a request for the <strong style="color:var(--white);">institutional will</strong> to make NaijaSports the digital heartbeat of Nigerian sports excellence.
+          </p>
+          <div style="margin-top:1.5rem;font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:700;color:var(--ng-green-l);">Let's build the future of Nigerian sport — together. 🇳🇬</div>
+        </div>
+      </div>
+    </section>
+
+  </div><!-- /deck -->
+
+
+  <!-- ─── JS ENGINE ─── -->
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const total = slides.length;
+    let current = 0;
+    let animating = false;
+
+    const progressBar = document.getElementById('progress-bar');
+    const counter     = document.getElementById('slide-counter');
+    const btnPrev     = document.getElementById('btn-prev');
+    const btnNext     = document.getElementById('btn-next');
+    const dotsWrap    = document.getElementById('dots');
+
+    // Build dots
+    slides.forEach((_, i) => {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('role', 'button');
+      d.setAttribute('aria-label', `Go to slide ${i + 1}`);
+      d.addEventListener('click', () => goTo(i));
+      dotsWrap.appendChild(d);
+    });
+
+    function updateUI() {
+      const pct = ((current + 1) / total) * 100;
+      progressBar.style.width = pct + '%';
+      counter.textContent = `${current + 1} / ${total}`;
+      btnPrev.disabled = current === 0;
+      btnNext.disabled = current === total - 1;
+      dotsWrap.querySelectorAll('.dot').forEach((d, i) => {
+        d.classList.toggle('active', i === current);
+      });
+    }
+
+    function goTo(target) {
+      if (animating || target === current || target < 0 || target >= total) return;
+      animating = true;
+
+      const from = slides[current];
+      const to   = slides[target];
+
+      from.classList.add('exit');
+      to.classList.add('active');
+
+      setTimeout(() => {
+        from.classList.remove('active', 'exit');
+        animating = false;
+      }, 580);
+
+      current = target;
+      updateUI();
+    }
+
+    function next() { goTo(current + 1); }
+    function prev() { goTo(current - 1); }
+
+    btnNext.addEventListener('click', next);
+    btnPrev.addEventListener('click', prev);
+
+    // Keyboard
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowRight' || e.key === ' ')  { e.preventDefault(); next(); }
+      if (e.key === 'ArrowLeft')                      { e.preventDefault(); prev(); }
+    });
+
+    // Touch/swipe
+    let touchStartX = 0;
+    document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+    document.addEventListener('touchend', e => {
+      const diff = touchStartX - e.changedTouches[0].clientX;
+      if (Math.abs(diff) > 50) { diff > 0 ? next() : prev(); }
+    });
+
+    updateUI();
+  </script>
+</body>
+</html>
