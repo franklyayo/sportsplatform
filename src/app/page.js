@@ -259,7 +259,7 @@ export default function Home() {
           <div className={styles.sectionHeader}>
             <span className={styles.sectionEyebrow}>Who it serves</span>
             <h2 className={styles.sectionTitle}>
-              Built for every player in the <span className="gradient-text">Nigerian sports ecosystem</span>
+              Built for every stakeholder in the <span className="gradient-text">Nigerian sports ecosystem</span>
             </h2>
             <p className={styles.sectionDescription}>
               One platform, many perspectives — switch roles in the demo to see how NSC admins, state ministers, scouts, athletes, and fans experience the system.
