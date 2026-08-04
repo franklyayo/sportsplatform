@@ -11,7 +11,7 @@ const mockResources = [
     description: "The primary legal and operational framework governing sports business, infrastructure incentives, and tax concessions in Nigeria.",
     mediaType: "PDF Policy Document",
     category: "Policies & Laws",
-    author: "Federal Ministry of Sports & NSC",
+    author: "Federal Ministry of Youth Development & NSC",
     fileSize: "4.8 MB",
     thumbnailUrl: "/images/nigerian_coach.png",
     fullText: "NATIONAL SPORTS INDUSTRY POLICY (NSIP 2026)\n\n1. EXECUTIVE SUMMARY:\nThis policy establishes sports as a key economic driver for Nigeria, classifying sports infrastructure as national priority infrastructure eligible for pioneer tax incentives.\n\n2. GOVERNANCE & INTEGRITY:\nAll national federations must comply with quarterly financial audits and NIN-based athlete identification registry.\n\n3. INFRASTRUCTURE & LEASES:\nPublic-Private Partnerships (PPP) guidelines for stadium management and long-term facility leases."

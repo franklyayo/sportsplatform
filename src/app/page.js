@@ -235,7 +235,7 @@ export default function Home() {
               Eight modules. <span className="gradient-text">One national system.</span>
             </h2>
             <p className={styles.sectionDescription}>
-              Built to serve the Federal Ministry of Sports, NSC, state councils, federations, athletes, and partners — from discovery to podium.
+              Built to serve the Federal Ministry of Youth Development, NSC, state councils, federations, athletes, and partners — from discovery to podium.
             </p>
           </div>
 
@@ -392,7 +392,7 @@ export default function Home() {
           <div className={styles.footerBottom}>
             <span>© {new Date().getFullYear()} Nigeria Sports Aggregation Platform</span>
             <span>·</span>
-            <span>MVP for Federal Ministry of Sports presentation</span>
+            <span>MVP for Federal Ministry of Youth Development presentation</span>
           </div>
         </div>
       </footer>
